@@ -1,10 +1,9 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Reveal from '@/components/animations/Reveal';
 import { useI18n } from '@/i18n/I18nProvider';
 import { stepAssets } from '@/data/content';
-import { gsap, ScrollTrigger } from '@/lib/gsap';
 
 function Leaf({ className }: { className?: string }) {
   return (
@@ -15,72 +14,68 @@ function Leaf({ className }: { className?: string }) {
   );
 }
 
-function PhoneFrame() {
-  const videoRef = useRef<HTMLVideoElement>(null);
+function VideoCard({
+  title,
+  subtitle,
+  src,
+  poster,
+  label,
+}: {
+  title: string;
+  subtitle: string;
+  src: string;
+  poster: string;
+  label: string;
+}) {
+  const ref = useRef<HTMLVideoElement | null>(null);
+  const [paused, setPaused] = useState(false);
 
   useEffect(() => {
-    const video = videoRef.current;
+    const video = ref.current;
     if (!video) return;
-    video.play().catch(() => {});
-    video.muted = true;
-    video.loop = true;
-    video.playsInline = true;
+    const io = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) video.play().catch(() => {});
+      else video.pause();
+    }, { threshold: .2, rootMargin: '12% 0px' });
+    io.observe(video);
+
+    const onPlay = () => setPaused(false);
+    const onPause = () => setPaused(true);
+    video.addEventListener('play', onPlay);
+    video.addEventListener('pause', onPause);
+
+    return () => {
+      io.disconnect();
+      video.removeEventListener('play', onPlay);
+      video.removeEventListener('pause', onPause);
+    };
   }, []);
 
+  const toggle = () => {
+    const video = ref.current;
+    if (!video) return;
+    if (video.paused) video.play().catch(() => {});
+    else video.pause();
+  };
+
   return (
-    <div className="how-phone-frame" aria-hidden="true">
-      <div className="phone-body">
-        <div className="phone-notch" />
-        <div className="phone-screen">
-          <video
-            ref={videoRef}
-            className="phone-video"
-            poster="/assets/how-it-works-poster.jpg"
-            muted
-            autoPlay
-            loop
-            playsInline
-            preload="metadata"
-          >
-            <source src="/assets/how-it-works.mp4" type="video/mp4" />
-          </video>
-          <div className="phone-glare" />
-        </div>
-        <div className="phone-side-btn" />
-        <div className="phone-side-btn" />
+    <article className="how-video-card">
+      <div className="how-video-title"><strong>{title}</strong><span>{subtitle}</span></div>
+      <div className="how-video-window">
+        <video ref={ref} onClick={toggle} muted loop playsInline preload="metadata" poster={poster} aria-label={label}>
+          <source src={src} type="video/mp4" />
+        </video>
+        {paused && <span className="how-video-play" aria-hidden="true">▶</span>}
+        <span className="how-video-index" aria-hidden="true">{label === 'use' ? '01' : '02'}</span>
       </div>
-      <div className="phone-shadow" />
-      <div className="phone-glow" />
-    </div>
+    </article>
   );
 }
 
 export default function HowItWorks() {
-  const { t, tArr } = useI18n();
+  const { t, tArr, locale } = useI18n();
   const steps = tArr<string>('how.steps');
-  const phoneRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const phone = phoneRef.current;
-    if (!phone) return;
-
-    const ctx = gsap.context(() => {
-      gsap.fromTo(
-        phone,
-        { y: 80, opacity: 0, scale: 0.96 },
-        {
-          y: 0,
-          opacity: 1,
-          scale: 1,
-          duration: 1.4,
-          ease: 'expo.out',
-          scrollTrigger: { trigger: phone, start: 'top 75%', once: true },
-        }
-      );
-    }, phone);
-
-    return () => ctx.revert();
-  }, []);
+  const ar = locale === 'ar';
 
   return (
     <section id="how" className="how">
@@ -90,9 +85,24 @@ export default function HowItWorks() {
         <Reveal>
           <h2 className="how-title">{t('how.title')}</h2>
         </Reveal>
-        <div className="how-phone-wrapper" ref={phoneRef}>
-          <PhoneFrame />
-        </div>
+
+        <Reveal className="how-video-duo" delay={.08}>
+          <VideoCard
+            title={ar ? 'كيف تستخدمه؟' : 'How do you use it?'}
+            subtitle={ar ? 'من الجيب إلى الشحن' : 'From pocket to power'}
+            src="/assets/how-it-works.mp4"
+            poster="/assets/how-it-works-poster.jpg"
+            label="use"
+          />
+          <VideoCard
+            title={ar ? 'كيف تشحنه؟' : 'How do you recharge it?'}
+            subtitle={ar ? 'من أي منفذ USB' : 'From any USB port'}
+            src="/assets/charging-anywhere.mp4"
+            poster="/assets/charging-anywhere-poster.jpg"
+            label="charge"
+          />
+        </Reveal>
+
         <div className="how-steps">
           {stepAssets.map((s, i) => (
             <Reveal key={s.n} delay={i * 0.1} className="how-d-step">

@@ -9,12 +9,6 @@ export const stepAssets = [
   { n: '04', image: '/assets/how-step-04.webp' },
 ];
 
-export const menuAssets = [
-  { image: '/assets/how-step-03.webp', price: '99 ر.س' },
-  { image: '/assets/how-step-02.webp', price: '168 ر.س' },
-  { image: '/assets/fries-process-bg.png', price: '230 ر.س' },
-  { image: '/assets/how-step-04.webp', price: '99 ر.س' },
-];
 
 
 export const makersAssets = {

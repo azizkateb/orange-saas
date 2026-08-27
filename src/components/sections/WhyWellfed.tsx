@@ -56,7 +56,7 @@ export default function WhyWellfed() {
             ))}
           </ul>
           <div className="why-actions">
-            <a className="btn-lime" href="#menu" onClick={(e) => { e.preventDefault(); scrollToSection('#menu'); }}>
+            <a className="btn-lime" href="#offers" onClick={(e) => { e.preventDefault(); scrollToSection('#offers'); }}>
               {t('why.viewMenu')}
             </a>
             <a className="btn-ghost" href="#how" onClick={(e) => { e.preventDefault(); scrollToSection('#how'); }}>
@@ -65,18 +65,11 @@ export default function WhyWellfed() {
           </div>
         </div>
         <div className="why-media">
-          <div className="why-plate food" ref={archRef}>
-            <video
-              className="why-video"
-              poster="/assets/charging-anywhere-poster.jpg"
-              muted
-              autoPlay
-              loop
-              playsInline
-              preload="metadata"
-            >
-              <source src="/assets/charging-anywhere.mp4" type="video/mp4" />
-            </video>
+          <div className="why-plate why-no-cable" ref={archRef}>
+            <span className="why-no-cable-kicker">{t('why.noCableKicker')}</span>
+            <strong>{t('why.noCableTitle')}</strong>
+            <p>{t('why.noCableText')}</p>
+            <div className="why-no-cable-mark" aria-hidden="true">1</div>
           </div>
           <Star className="why-star why-star--plate" />
         </div>

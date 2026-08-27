@@ -17,6 +17,8 @@ export default function ImageReveal() {
         if (img.closest('.promo')) return false;
         if (img.closest('nav') || img.closest('.navbar')) return false;
         if (img.closest('[data-no-reveal]')) return false;
+        if (img.classList.contains('problem-product-image')) return false;
+        if (img.closest('.problem-product-scale')) return false;
         // Skip above-fold images — they're already visible, avoid DOM
         // mutation and ScrollTrigger overhead on the critical LCP area.
         const rect = img.getBoundingClientRect();

@@ -97,7 +97,7 @@ export default function Hero() {
               </div>
             ))}
           </div>
-          <a className="btn-order" href="#menu" onClick={(e) => { e.preventDefault(); scrollToSection('#menu'); }}>
+          <a className="btn-order" href="#offers" onClick={(e) => { e.preventDefault(); scrollToSection('#offers'); }}>
             {t('hero.order')}
           </a>
         </div>

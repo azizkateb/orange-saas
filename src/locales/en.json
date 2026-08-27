@@ -13,8 +13,8 @@
   "nav": {
     "links": [
       {
-        "href": "#menu",
-        "label": "Product"
+        "href": "#how",
+        "label": "How it works"
       },
       {
         "href": "#comparison",
@@ -67,7 +67,7 @@
       "5000mAh",
       "20W fast charge",
       "98g weight",
-      "Type-C connector",
+      "Air-travel friendly",
       "Digital display",
       "Built-in stand",
       "Four protection layers",
@@ -75,30 +75,12 @@
     ],
     "viewMenu": "See the product",
     "howItWorks": "How it works",
-    "imageAlt": "Mini Orange charging a phone"
-  },
-  "menu": {
-    "title": "Choose your use",
-    "viewMenu": "View details",
-    "order": "Buy now",
-    "items": [
-      {
-        "name": "Charge your phone while using it",
-        "tag": "Phone"
-      },
-      {
-        "name": "Direct power for your PlayStation controller",
-        "tag": "Gaming"
-      },
-      {
-        "name": "A light companion for travel",
-        "tag": "Travel"
-      },
-      {
-        "name": "Charge earbuds and small devices",
-        "tag": "Everyday"
-      }
-    ]
+    "imageAlt": "Mini Orange charging a phone",
+    "noCableKicker": "ONE PIECE ONLY",
+    "noCableTitle": "No more cables.",
+    "noCableText": "No power bank, cable and extra pieces. Mini Orange alone plugs directly into your device whenever you need power.",
+    "safetyTitle": "Four smart protection layers",
+    "safetyText": "Protection from overheating, overcurrent, overcharging and short circuits."
   },
   "makers": {
     "badgeLabel": "customers",

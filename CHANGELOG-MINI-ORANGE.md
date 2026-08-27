@@ -59,13 +59,25 @@ No CSS, GSAP plan, Lenis provider, animation component, section structure, page 
 - Added an eight-question FAQ section using native accessible `details` elements.
 - Updated navbar and footer labels to Comparison, Offers and FAQ.
 
-## Offer and FAQ polish
-- Changed only the product-image panel in Offers from orange to warm white; retained the surrounding dark section and added a product shadow for separation.
-- Replaced native FAQ details toggling with an accessible controlled accordion.
-- FAQ answers now use solid black text, 17px size, 700 weight and 1.85 line-height.
-- Open and close both animate smoothly with a natural-height `0fr → 1fr` grid transition; reduced-motion remains supported.
+## Final client direction
+- Converted every live page section to a continuous black canvas with off-white copy and Orange emphasis.
+- Removed `Menu / اختر استخدامك` from the page, component tree, locale data and asset data.
+- Added an explicit `مناسب للطائرة والسفر` feature to the product checklist.
+- Added a prominent four-layer protection callout naming heat, current, overcharge and short-circuit protection.
+- Removed the unlabeled charging-method video from WhyWellfed and replaced it with a text-only `لا أسلاك بعد الآن` composition.
+- Updated Hero and Why CTA targets from the removed `#menu` to `#offers`.
 
-## White surface refinements
-- Changed the Problem section background from orange to warm white and moved orange to text emphasis and the visual shadow.
-- Changed offer-option hover and selected states from orange to white; the purchase CTA remains orange.
-- Changed FAQ plus buttons to white with a dark outline; open state stays white and rotates smoothly.
+## Cinematic safety section
+- Added a dedicated Safety section after WhyWellfed, matching the earlier high-quality protection presentation.
+- Added the `يشحن. ويراقب.` headline, Thermistor explanation, and four detailed systems: overheating, overcharge, overcurrent, and short-circuit protection.
+- Uses the existing real-use Mini Orange image as a full-bleed dark background with GSAP parallax and staggered system reveals.
+- Removed the small duplicate safety callout from WhyWellfed.
+- Removed the orphaned `Menu.tsx` that caused Vercel TypeScript failure.
+- Added explicit Sharp approval/configuration for reproducible Vercel installs.
+
+## Compact dual-video presentation
+- Removed the oversized phone mockup from HowItWorks.
+- Added two compact side-by-side video cards inside the same section: `كيف تستخدمه؟` and `كيف تشحنه؟`.
+- Kept the four-step staircase immediately below the videos.
+- Both clips play only near the viewport and pause offscreen.
+- The two-column composition stays side by side on phones to match the client sketch.
