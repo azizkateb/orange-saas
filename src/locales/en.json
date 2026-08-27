@@ -1,0 +1,185 @@
+{
+  "meta": {
+    "title": "Mini Orange — Big power, pocket size",
+    "description": "5000mAh portable charger with 20W fast charging and no cable.",
+    "ogTitle": "Mini Orange — Big power, pocket size",
+    "ogDescription": "Portable power for your phone and daily devices, small enough for your pocket."
+  },
+  "language": {
+    "label": "Language",
+    "switchToAr": "العربية",
+    "switchToEn": "English"
+  },
+  "nav": {
+    "links": [
+      {
+        "href": "#menu",
+        "label": "Product"
+      },
+      {
+        "href": "#makers",
+        "label": "Why Mini Orange"
+      },
+      {
+        "href": "#how",
+        "label": "How it works"
+      },
+      {
+        "href": "#recipes",
+        "label": "Real use"
+      }
+    ],
+    "addressLine1": "20W fast charging",
+    "addressLine2": "5000mAh capacity",
+    "menuButton": "Buy now",
+    "toggleMenu": "Toggle menu"
+  },
+  "hero": {
+    "titlePre": "Big ",
+    "titleStrong": "power,",
+    "titleLine2": "pocket size",
+    "features": [
+      "20W fast charging on demand",
+      "Built-in connector, no cable",
+      "Digital display and phone stand"
+    ],
+    "order": "Buy now",
+    "stampText": "NO CABLE • 5000mAh • FAST CHARGE • SMART PROTECTION • ",
+    "stampNo": "ORANGE",
+    "imageAlt": "Mini Orange held between two hands"
+  },
+  "how": {
+    "title": "How it works",
+    "steps": [
+      "Take it from your pocket",
+      "Point the connector at your device",
+      "Plug in and charging starts",
+      "Open the stand and keep using it"
+    ]
+  },
+  "why": {
+    "overline": "SMALL • FAST • ALWAYS READY",
+    "titleEm1": "Direct",
+    "titleStrong": "Power",
+    "titleEm2": "for every day",
+    "lead": "No long cable and no bulky power bank. Mini Orange plugs straight into your device whenever you need a boost.",
+    "checklist": [
+      "5000mAh",
+      "20W fast charge",
+      "98g weight",
+      "Type-C connector",
+      "Digital display",
+      "Built-in stand",
+      "Four protection layers",
+      "Two-year warranty"
+    ],
+    "viewMenu": "See the product",
+    "howItWorks": "How it works",
+    "imageAlt": "Mini Orange charging a phone"
+  },
+  "menu": {
+    "title": "Choose your use",
+    "viewMenu": "View details",
+    "order": "Buy now",
+    "items": [
+      {
+        "name": "Charge your phone while using it",
+        "tag": "Phone"
+      },
+      {
+        "name": "Direct power for your PlayStation controller",
+        "tag": "Gaming"
+      },
+      {
+        "name": "A light companion for travel",
+        "tag": "Travel"
+      },
+      {
+        "name": "Charge earbuds and small devices",
+        "tag": "Everyday"
+      }
+    ]
+  },
+  "makers": {
+    "badgeLabel": "customers",
+    "title1": "Why",
+    "title2": "Mini Orange?",
+    "text": "It removes the two annoying parts of portable charging: cables and bulk. It disappears into your pocket and shows up only when you need power.",
+    "imageAlt": "Mini Orange in real use",
+    "stampText": "10,000+ CUSTOMERS • TWO-YEAR WARRANTY • ",
+    "social": {
+      "facebook": "Facebook",
+      "instagram": "Instagram",
+      "twitter": "X"
+    }
+  },
+  "promo": {
+    "titleLine1": "Charges your device,",
+    "titleLine2": "and recharges cable-free.",
+    "text": "Recharge Mini Orange from any USB port at home, on your PlayStation, or in the car. No special cable required.",
+    "viewMenu": "See how it works",
+    "imageAlt": "Pocket-size Mini Orange"
+  },
+  "recipes": {
+    "title": "Real-life use",
+    "buyNow": "Buy now",
+    "ctaTitle": "Extra power for wherever life takes you",
+    "ctaText": "Ready for your next charge? Take Mini Orange with you and order now.",
+    "items": [
+      {
+        "tag": "Gaming",
+        "name": "Keep playing without a long cable"
+      },
+      {
+        "tag": "Phone",
+        "name": "Use your phone while it charges"
+      },
+      {
+        "tag": "Travel",
+        "name": "Backup power that will not weigh you down"
+      }
+    ]
+  },
+  "footer": {
+    "tagline": "Mini Orange: extra power always with you, in a smaller, easier form.",
+    "store": {
+      "appStore": "Secure payment",
+      "googlePlay": "Free delivery"
+    },
+    "cols": [
+      {
+        "title": "Product",
+        "links": [
+          "Home",
+          "Benefits",
+          "How it works",
+          "Real use"
+        ]
+      },
+      {
+        "title": "Before buying",
+        "links": [
+          "Compatibility",
+          "Charging",
+          "Protection",
+          "Warranty"
+        ]
+      },
+      {
+        "title": "Support",
+        "links": [
+          "FAQ",
+          "Shipping",
+          "Returns",
+          "Contact"
+        ]
+      }
+    ],
+    "callToOrder": "Order now",
+    "phone": "SAR 99",
+    "addressLine1": "Free delivery",
+    "addressLine2": "Across all regions",
+    "copyright": "© 2026 Orange. All rights reserved.",
+    "builtWith": "Secure checkout via Salla"
+  }
+}
