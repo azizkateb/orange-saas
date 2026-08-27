@@ -189,12 +189,12 @@ h1,h2,h3{font-family:var(--font-serif),Georgia,serif;font-weight:600;margin:0;li
 @media (min-width:981px){
   .promo{padding:56px 0;}
 }
-.promo-grid{display:grid;grid-template-columns:1fr 1.3fr;gap:40px;align-items:center;}
+.promo{padding-block:clamp(56px,7vw,90px);}
+.promo-grid{display:block;}
+.promo-copy{max-width:760px;margin-inline:auto;text-align:center;}
 .promo-copy .sec-title{max-width:560px;color:#151515;text-shadow:none;opacity:1;line-height:1.04;font-size:clamp(42px,4.4vw,68px);font-weight:800;}
-.promo-copy p{color:#4f4944;opacity:1;margin:18px 0 26px;max-width:410px;font-size:clamp(17px,1.45vw,20px);font-weight:700;line-height:1.6;}
-.promo-media{position:relative;z-index:3;overflow:hidden;opacity:1;}
-.promo-media img{width:100%;height:auto;display:block;}
-.promo-media img{opacity:1 !important;mix-blend-mode:normal;filter:none;}
+.promo-copy p{color:#4f4944;opacity:1;margin:18px 0 26px;max-width:50ch;font-size:clamp(17px,1.45vw,20px);font-weight:700;line-height:1.6;margin-inline:auto;}
+.promo-copy .btn-lime{margin-top:24px;}
 .promo .btn-lime{height:auto;padding:14px 30px;border-radius:8px;box-shadow:none;border:1px solid rgba(0,0,0,.14);background:#ff7900;color:#151515;opacity:1;}
 
 .tag{display:inline-block;margin:14px 4px 8px;padding:4px 12px;border-radius:6px;background:var(--white);border:1px solid rgba(0,0,0,.18);color:var(--black);font-size:12px;font-weight:700;}
@@ -272,8 +272,7 @@ h1,h2,h3{font-family:var(--font-serif),Georgia,serif;font-weight:600;margin:0;li
   .makers-stamp{width:112px;height:112px;top:-18px;right:-6px;}
   .makers-stamp-center strong{font-size:26px;}
   .makers-copy p{max-width:none;}
-  .promo-grid{gap:24px;}
-  .promo-copy p{max-width:none;font-size:17px;font-weight:700;}
+  .promo-copy p{max-width:none;font-size:17px;font-weight:700;margin-inline:auto;}
   .footer{padding:56px 0 28px;}
   .footer-grid{gap:24px;}
 }
@@ -289,7 +288,6 @@ h1,h2,h3{font-family:var(--font-serif),Georgia,serif;font-weight:600;margin:0;li
   .hero-cream-stamp{width:78px;height:78px;bottom:12px;}
   .hero-cream-stamp-ring text{font-size:6px;letter-spacing:2px;}
   .hero-cream-stamp-no{font-size:21px;}
-  .promo-media{justify-self:center;}
 }
 
 /* ===================================================================
@@ -370,7 +368,7 @@ h1,h2,h3{font-family:var(--font-serif),Georgia,serif;font-weight:600;margin:0;li
 .brand-logo--footer{width:150px}
 @media(max-width:767px){.brand-logo{width:116px}.brand-logo--footer{width:138px}}
 
-.promo-media img{width:170%;max-width:none;max-height:1054px;margin-inline:-35%;object-fit:contain;}
+
 @media (max-width:767px){
   html,body{width:100%;max-width:100%;overflow-x:clip;}
   .container{width:calc(100% - 32px);max-width:100%;margin-inline:auto;}
@@ -408,8 +406,6 @@ h1,h2,h3{font-family:var(--font-serif),Georgia,serif;font-weight:600;margin:0;li
   .promo-grid{gap:18px;}
   .promo-copy{min-width:0;}
   .promo-copy .sec-title{font-size:clamp(36px,10vw,52px);font-weight:800;overflow-wrap:anywhere;}
-  .promo-media{width:100%;overflow:visible;}
-  .promo-media img{width:170%;max-width:none;max-height:none;margin-inline:-35%;}
   .footer{padding-top:52px;}
   .footer-brand,.footer-col{min-width:0;}
   .footer-bottom{gap:8px;overflow-wrap:anywhere;}
@@ -420,8 +416,6 @@ h1,h2,h3{font-family:var(--font-serif),Georgia,serif;font-weight:600;margin:0;li
   .why-star,.makers-star{width:44px;}
   .pill{box-shadow:0 8px 18px rgba(0,0,0,.14);}
   .phone-shadow{filter:blur(16px);}
-  .promo-media{max-width:100%;}
-  .promo-media img{width:min(170%,540px);}
 }
 
 /* ==================================================================
@@ -596,7 +590,6 @@ body{--cream:var(--black);--cream-2:var(--black);--gray-100:var(--black)}
 /* Makers + Promo */
 .makers-photo{background:var(--charcoal);border-color:var(--orange-500)}
 .socials a{color:var(--white)}
-.promo-media{background:transparent}
 .promo .btn-lime{background:var(--orange-500);color:var(--black)}
 
 /* Comparison */

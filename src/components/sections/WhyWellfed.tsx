@@ -1,7 +1,6 @@
 'use client';
 
 import { useI18n } from '@/i18n/I18nProvider';
-import { scrollToSection } from '@/lib/scrollTo';
 
 export default function WhyWellfed() {
   const { t, tArr } = useI18n();
@@ -22,14 +21,6 @@ export default function WhyWellfed() {
               <li key={c}>{c}</li>
             ))}
           </ul>
-          <div className="why-actions">
-            <a className="btn-lime" href="#offers" onClick={(e) => { e.preventDefault(); scrollToSection('#offers'); }}>
-              {t('why.viewMenu')}
-            </a>
-            <a className="btn-ghost" href="#how" onClick={(e) => { e.preventDefault(); scrollToSection('#how'); }}>
-              {t('why.howItWorks')}
-            </a>
-          </div>
         </div>
 
       </div>
