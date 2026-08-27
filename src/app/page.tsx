@@ -7,6 +7,7 @@ import HowItWorks from '@/components/sections/HowItWorks';
 import Makers from '@/components/sections/Makers';
 import PromoBand from '@/components/sections/PromoBand';
 import Comparison from '@/components/sections/Comparison';
+import Reviews from '@/components/sections/Reviews';
 import Offers from '@/components/sections/Offers';
 import Faq from '@/components/sections/Faq';
 import Footer from '@/components/sections/Footer';
@@ -23,6 +24,7 @@ export default function Home() {
       <Makers />
       <PromoBand />
       <Comparison />
+      <Reviews />
       <Offers />
       <Faq />
       <Footer />
