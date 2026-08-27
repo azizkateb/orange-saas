@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Playfair_Display, Inter } from 'next/font/google';
+import { Tajawal } from 'next/font/google';
 import LenisProvider from '@/components/animations/LenisProvider';
 import TextReveal from '@/components/animations/TextReveal';
 import ImageReveal from '@/components/animations/ImageReveal';
@@ -7,15 +7,10 @@ import LocaleScope from '@/components/animations/LocaleScope';
 import { I18nProvider } from '@/i18n/I18nProvider';
 import './globals.css';
 
-const serif = Playfair_Display({
-  subsets: ['latin'],
-  variable: '--font-serif',
-  display: 'swap',
-});
-
-const sans = Inter({
-  subsets: ['latin'],
-  variable: '--font-sans',
+const tajawal = Tajawal({
+  subsets: ['arabic', 'latin'],
+  weight: ['300', '400', '500', '700', '800'],
+  variable: '--font-tajawal',
   display: 'swap',
 });
 
@@ -53,11 +48,10 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       lang="ar"
       dir="rtl"
       suppressHydrationWarning
-      className={`${serif.variable} ${sans.variable}`}
+      className={`${tajawal.variable}`}
     >
       <head>
         <script dangerouslySetInnerHTML={localeBootstrap} />
-        <link rel="preload" href="/assets/aligarh-arabic-free-personal-use.semi-bold.otf" as="font" type="font/otf" crossOrigin="anonymous" />
       </head>
       <body>
         <I18nProvider>
