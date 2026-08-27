@@ -57,9 +57,9 @@ export default function Navbar() {
         </a>
         <div className="nav-right">
           <div className="nav-addr">{t('nav.addressLine1')}<br />{t('nav.addressLine2')}</div>
-           <a className="nav-menu-btn" href="https://orange-sa.com/ar/mini-orange/p675834151">
-             {t('nav.menuButton')}
-           </a>
+           <a className="nav-menu-btn" href="#offers" onClick={(e) => { e.preventDefault(); go('#offers'); }}>
+              {t('nav.menuButton')}
+            </a>
           <LanguageSwitcher />
           <button className="nav-burger" aria-label={t('nav.toggleMenu')} onClick={() => setOpen((v) => !v)}>
             <span /><span /><span />
@@ -73,7 +73,7 @@ export default function Navbar() {
               {l.label}
             </a>
           ))}
-           <a href="https://orange-sa.com/ar/mini-orange/p675834151">{t('nav.menuButton')}</a>
+           <a href="#offers" onClick={(e) => { e.preventDefault(); go('#offers'); }}>{t('nav.menuButton')}</a>
         </div>
       )}
     </nav>
