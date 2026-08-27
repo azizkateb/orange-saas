@@ -34,10 +34,8 @@ function IconDisplayStand() {
 
 const icons = [<IconFastCharge key="charge" />, <IconConnector key="connector" />, <IconDisplayStand key="display" />];
 
-const PI2 = 2 * Math.PI;
-
 export default function Hero() {
-  const { t, tArr, dir } = useI18n();
+  const { t, tArr } = useI18n();
   const features = tArr<string>('hero.features');
   const copyRef = useRef<HTMLDivElement>(null);
   const imageRef = useRef<HTMLImageElement>(null);
@@ -71,9 +69,6 @@ export default function Hero() {
     return () => ctx.revert();
   }, []);
 
-  const isRtl = dir === 'rtl';
-  const stampText = t('hero.stampText');
-
   return (
     <section id="home" className="hero-cream">
       <svg className="hero-cream-squiggle hero-cream-squiggle--tl" viewBox="0 0 200 200" fill="none" aria-hidden>
@@ -103,19 +98,6 @@ export default function Hero() {
         </div>
         <div className="hero-cream-media">
           <div className="hero-cream-arch food"><img ref={imageRef} src="/assets/friesCTA.png" alt={t('hero.imageAlt')} width="770" height="924" fetchPriority="high" /></div>
-          <div className="hero-cream-stamp">
-            <svg className="hero-cream-stamp-ring" viewBox="0 0 120 120" aria-hidden>
-              <defs>
-                <path id="stampArc" d="M60 12 A48 48 0 1 1 59.9 12" />
-              </defs>
-              <text fontWeight="700" direction={isRtl ? 'rtl' : undefined} unicodeBidi={isRtl ? 'plaintext' : undefined}>
-                <textPath href="#stampArc" startOffset="50%" textAnchor="middle" textLength={isRtl ? PI2 * 48 : undefined} lengthAdjust={isRtl ? 'spacingAndGlyphs' : undefined}>
-                  {stampText}
-                </textPath>
-              </text>
-            </svg>
-            <span className="hero-cream-stamp-no">{t('hero.stampNo')}</span>
-          </div>
         </div>
       </div>
     </section>
