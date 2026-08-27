@@ -81,3 +81,36 @@ No CSS, GSAP plan, Lenis provider, animation component, section structure, page 
 - Kept the four-step staircase immediately below the videos.
 - Both clips play only near the viewport and pause offscreen.
 - The two-column composition stays side by side on phones to match the client sketch.
+
+## Client final requirements (20:12–20:19)
+- Replaced the old Problem card with a new cable-free story at the top of the page, plus a featured real-use product image.
+- Kept the `لماذا Mini Orange؟` content and removed the PlayStation-hands image without substituting another photo.
+- Changed the charging label from USB to `من خلال أي منفذ Type-C` in Arabic and English.
+- Made the Offers product canvas transparent and reduced the quantity-list spacing while preserving tap targets.
+- Reduced the dead space after Offers and pulled `قبل أن تطلب` / FAQ upward.
+- Removed the orphan Menu component, menu locale data, menu asset data, and unused menu CSS.
+- Kept explicit Sharp 0.34.5 approval in package.json and the root lockfile dependency list for Vercel.
+
+## Client video QA fixes
+- Removed the duplicated `لا أسلاك بعد الآن` card from WhyWellfed; the section is now a balanced full-width text/checklist composition.
+- Fixed both HowItWorks videos by rendering the actual interactive VideoCard component, enabling muted autoplay near the viewport, offscreen pause, and tap-to-play/pause.
+- Replaced the testimonial carousel with a Salla-style review list: stars, verified-purchase labels, first 3 reviews visible, and a `المزيد من التقييمات` control for the remaining reviews.
+- Reworked mobile Comparison into stacked two-option rows with no horizontal scrolling.
+- Reworked mobile navigation into a compact overlay panel and made footer links functional/compact.
+- Updated footer desktop layout to fit all five groups in one row.
+- Preserved Type-C wording, airplane compatibility, safety section, Offers, FAQ, Sharp approval, GSAP and Lenis.
+
+## Salla-style footer
+- Deleted the previous multi-column dark footer component.
+- Replaced it with a centered Salla-style warm-white footer: Orange logo, store description, freelance-license block, contact controls, social icons, Salla attribution and payment badges.
+- Added a purpose-built compact mobile arrangement matching the supplied Salla reference.
+
+## Footer logo sizing fix
+- Excluded the Salla footer logo from the global ImageReveal DOM wrapper.
+- Added `data-no-reveal` to the logo and a defensive max-size rule.
+- Fixes the giant cropped ORANGE wordmark without changing the footer layout.
+
+## Current-version white chip removal
+- Removed only the white `problem-product-chip` from the current Problem section.
+- Removed its selectors and reserved bottom spacing.
+- Preserved Safety, Reviews, compact video duo, Comparison, Offers, FAQ, Salla footer and all current-version work.

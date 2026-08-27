@@ -21,7 +21,7 @@ export default function Comparison() {
         <Reveal className="comparison-head"><span className="overline">{ar ? 'مقارنة واضحة' : 'CLEAR COMPARISON'}</span><h2 className="sec-title">{ar ? 'أقل مما تحمله. أكثر مما تحصل عليه.' : 'Carry less. Get more.'}</h2><p>{ar ? 'نفس وظيفة الشحن المتنقل، لكن بدون الحجم والأسلاك المعتادة.' : 'The same portable-power job, without the usual bulk and cables.'}</p></Reveal>
         <Reveal className="comparison-table" delay={0.1}>
           <div className="comparison-row comparison-labels"><span>{ar ? 'المعيار' : 'Feature'}</span><strong>Mini Orange</strong><b>{ar ? 'الحل التقليدي' : 'Traditional'}</b></div>
-          {rows.map(row => <div className="comparison-row" key={row[0]}><span>{row[0]}</span><strong><i>✓</i>{row[1]}</strong><b><i>×</i>{row[2]}</b></div>)}
+          {rows.map(row => <div className="comparison-row" key={row[0]}><span>{row[0]}</span><strong data-label="Mini Orange"><i>✓</i>{row[1]}</strong><b data-label={ar ? 'الحل التقليدي' : 'Traditional'}><i>×</i>{row[2]}</b></div>)}
         </Reveal>
       </div>
     </section>

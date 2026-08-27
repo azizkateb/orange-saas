@@ -58,7 +58,7 @@ export default function PromoBand() {
   }, [dir]);
 
   return (
-    <section className="promo">
+    <section id="promo" className="promo">
       <div className="container promo-grid">
         <Reveal className="promo-copy">
           <h2 className="sec-title">{t('promo.titleLine1')}<br />{t('promo.titleLine2')}</h2>

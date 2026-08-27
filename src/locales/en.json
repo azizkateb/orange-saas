@@ -49,13 +49,7 @@
     "imageAlt": "Mini Orange held between two hands"
   },
   "how": {
-    "title": "How it works",
-    "steps": [
-      "Take it from your pocket",
-      "Point the connector at your device",
-      "Plug in and charging starts",
-      "Open the stand and keep using it"
-    ]
+    "title": "How it works"
   },
   "why": {
     "overline": "SMALL • FAST • ALWAYS READY",
@@ -98,7 +92,7 @@
   "promo": {
     "titleLine1": "Charges your device,",
     "titleLine2": "and recharges cable-free.",
-    "text": "Recharge Mini Orange from any USB port at home, on your PlayStation, or in the car. No special cable required.",
+    "text": "Recharge Mini Orange from any Type-C port at home, on your PlayStation, or in the car. No special cable required.",
     "viewMenu": "See how it works",
     "imageAlt": "Pocket-size Mini Orange"
   },

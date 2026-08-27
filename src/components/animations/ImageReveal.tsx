@@ -15,7 +15,7 @@ export default function ImageReveal() {
       ).filter((img) => {
         if (img.closest('.why-plate') || img.closest('.why-media')) return false;
         if (img.closest('.promo')) return false;
-        if (img.closest('nav') || img.closest('.navbar')) return false;
+        if (img.closest('nav') || img.closest('.navbar') || img.closest('.salla-footer')) return false;
         if (img.closest('[data-no-reveal]')) return false;
         if (img.classList.contains('problem-product-image')) return false;
         if (img.closest('.problem-product-scale')) return false;

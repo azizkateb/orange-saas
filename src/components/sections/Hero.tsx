@@ -75,7 +75,7 @@ export default function Hero() {
   const stampText = t('hero.stampText');
 
   return (
-    <section className="hero-cream">
+    <section id="home" className="hero-cream">
       <svg className="hero-cream-squiggle hero-cream-squiggle--tl" viewBox="0 0 200 200" fill="none" aria-hidden>
         <path d="M10 180 Q30 140 50 160 T90 140 T130 160 T170 140" stroke="#d65b00" strokeWidth="2" opacity=".15" />
         <path d="M30 200 Q50 160 70 180 T110 160 T150 180 T190 160" stroke="#d65b00" strokeWidth="1.5" opacity=".12" />

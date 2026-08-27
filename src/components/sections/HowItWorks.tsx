@@ -3,7 +3,6 @@
 import { useEffect, useRef, useState } from 'react';
 import Reveal from '@/components/animations/Reveal';
 import { useI18n } from '@/i18n/I18nProvider';
-import { stepAssets } from '@/data/content';
 
 function Leaf({ className }: { className?: string }) {
   return (
@@ -28,13 +27,13 @@ function VideoCard({
   label: string;
 }) {
   const ref = useRef<HTMLVideoElement | null>(null);
-  const [paused, setPaused] = useState(false);
+  const [paused, setPaused] = useState(true);
 
   useEffect(() => {
     const video = ref.current;
     if (!video) return;
     const io = new IntersectionObserver(([entry]) => {
-      if (entry.isIntersecting) video.play().catch(() => {});
+      if (entry.isIntersecting) video.play().catch(() => setPaused(true));
       else video.pause();
     }, { threshold: .2, rootMargin: '12% 0px' });
     io.observe(video);
@@ -62,10 +61,10 @@ function VideoCard({
     <article className="how-video-card">
       <div className="how-video-title"><strong>{title}</strong><span>{subtitle}</span></div>
       <div className="how-video-window">
-        <video ref={ref} onClick={toggle} muted loop playsInline preload="metadata" poster={poster} aria-label={label}>
+        <video ref={ref} onClick={toggle} muted autoPlay loop playsInline preload="metadata" poster={poster} aria-label={label}>
           <source src={src} type="video/mp4" />
         </video>
-        {paused && <span className="how-video-play" aria-hidden="true">▶</span>}
+        <button type="button" className={`how-video-play${paused ? ' is-visible' : ''}`} onClick={toggle} aria-label={paused ? (label === 'use' ? 'تشغيل فيديو الاستخدام' : 'تشغيل فيديو الشحن') : 'إيقاف الفيديو'}>▶</button>
         <span className="how-video-index" aria-hidden="true">{label === 'use' ? '01' : '02'}</span>
       </div>
     </article>
@@ -73,14 +72,13 @@ function VideoCard({
 }
 
 export default function HowItWorks() {
-  const { t, tArr, locale } = useI18n();
-  const steps = tArr<string>('how.steps');
+  const { t, locale } = useI18n();
   const ar = locale === 'ar';
 
   return (
     <section id="how" className="how">
-      <Leaf className="how-leaf how-leaf--tr" />
-      <Leaf className="how-leaf how-leaf--bl" />
+      <div className="how-leaf how-leaf--tr" aria-hidden="true" />
+      <div className="how-leaf how-leaf--bl" aria-hidden="true" />
       <div className="container">
         <Reveal>
           <h2 className="how-title">{t('how.title')}</h2>
@@ -96,24 +94,12 @@ export default function HowItWorks() {
           />
           <VideoCard
             title={ar ? 'كيف تشحنه؟' : 'How do you recharge it?'}
-            subtitle={ar ? 'من أي منفذ USB' : 'From any USB port'}
+            subtitle={ar ? 'من خلال أي منفذ Type-C' : 'From any Type-C port'}
             src="/assets/charging-anywhere.mp4"
             poster="/assets/charging-anywhere-poster.jpg"
             label="charge"
           />
         </Reveal>
-
-        <div className="how-steps">
-          {stepAssets.map((s, i) => (
-            <Reveal key={s.n} delay={i * 0.1} className="how-d-step">
-              <div className="how-d-photo">
-                <img src={s.image} alt="" width="126" height="126" loading="lazy" />
-              </div>
-              <span className="how-d-num">{s.n}</span>
-              <div className="how-d-text">{steps[i]}</div>
-            </Reveal>
-          ))}
-        </div>
       </div>
     </section>
   );

@@ -22,7 +22,7 @@ export default function Faq() {
   const items = ar ? [
     ['هل يناسب جهازي؟','يتوافق مع الأجهزة التي تستخدم منفذ Type-C، ومنها هواتف كثيرة ويد البلايستيشن والسماعات والأجهزة الصغيرة.'],
     ['كم تبلغ سعته؟','سعته 5000mAh، مناسبة لدفعة شحن يومية عملية عندما تكون خارج المنزل.'],
-    ['هل أحتاج كابلًا لاستخدامه؟','لا. الموصل مدمج ويتصل مباشرة بجهازك. ويمكن شحن Mini Orange نفسه من منفذ USB.'],
+    ['هل أحتاج كابلًا لاستخدامه؟','لا. الموصل مدمج ويتصل مباشرة بجهازك. ويمكن شحن Mini Orange نفسه من منفذ Type-C.'],
     ['هل يمكن استخدام الهاتف أثناء الشحن؟','نعم. الستاند المدمج يثبت هاتفك أمامك أثناء الشحن.'],
     ['ما مدة شحن Mini Orange؟','يستغرق الشحن الكامل حوالي 40 دقيقة بحسب مصدر الطاقة المستخدم.'],
     ['هل الشحن آمن؟','نعم. يحتوي على أربع طبقات حماية من الحرارة والتيار والشحن الزائد والقصر الكهربائي.'],
@@ -31,7 +31,7 @@ export default function Faq() {
   ] : [
     ['Will it fit my device?','It works with Type-C devices, including many phones, PlayStation controllers, earbuds and small electronics.'],
     ['What is its capacity?','5000mAh, designed as a practical daily boost while you are away from home.'],
-    ['Do I need a cable to use it?','No. The connector is built in and plugs straight into your device. Mini Orange itself recharges from USB.'],
+    ['Do I need a cable to use it?','No. The connector is built in and plugs straight into your device. Mini Orange itself recharges from a Type-C port.'],
     ['Can I use my phone while charging?','Yes. The built-in stand keeps your phone upright while it charges.'],
     ['How long does it take to recharge?','A full recharge takes about 40 minutes depending on the power source.'],
     ['Is charging protected?','Yes. Four protection layers cover heat, overcurrent, overcharge and short circuit.'],
