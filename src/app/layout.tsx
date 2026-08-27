@@ -26,6 +26,9 @@ export const metadata: Metadata = {
   metadataBase: new URL('https://lp.orange-sa.com'),
   title: 'Mini Orange — Big power, pocket size',
   description: '5000mAh portable charger with 20W fast charging and no cable.',
+  icons: {
+    icon: '/assets/logo.svg',
+  },
   alternates: {
     canonical: '/',
     languages: {
