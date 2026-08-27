@@ -33,7 +33,7 @@ export function I18nProvider({ children }: { children: ReactNode }) {
   // Always start from the default locale so SSR and the first client render
   // match (avoids hydration mismatches). The stored locale is applied right
   // after mount, and an inline script in <head> sets dir/lang before paint.
-  const [locale, setLocaleState] = useState<Locale>('en');
+  const [locale, setLocaleState] = useState<Locale>('ar');
 
   useEffect(() => {
     try {

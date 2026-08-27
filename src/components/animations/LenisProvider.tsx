@@ -9,12 +9,13 @@ gsap.registerPlugin(ScrollTrigger);
 
 export default function LenisProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
+    const isTouchDevice = window.matchMedia('(pointer: coarse)').matches;
     const lenis = new Lenis({
-      duration: 1.15,
+      duration: isTouchDevice ? 0.8 : 1.15,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       smoothWheel: true,
-      wheelMultiplier: 1,
-      touchMultiplier: 1.5,
+      wheelMultiplier: isTouchDevice ? 0.85 : 1,
+      touchMultiplier: 1,
       infinite: false,
     });
 

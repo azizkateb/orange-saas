@@ -44,14 +44,14 @@ export const metadata: Metadata = {
 // flash or layout shift (CLS) when Arabic was previously selected.
 const localeBootstrap = {
   __html:
-    "(function(){try{var l=localStorage.getItem('locale');if(l==='ar'){document.documentElement.lang='ar';document.documentElement.dir='rtl';}}catch(e){}})();",
+    "(function(){try{var l=localStorage.getItem('locale')||'ar';document.documentElement.lang=l;document.documentElement.dir=l==='ar'?'rtl':'ltr';}catch(e){document.documentElement.lang='ar';document.documentElement.dir='rtl';}})();",
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html
-      lang="en"
-      dir="ltr"
+      lang="ar"
+      dir="rtl"
       suppressHydrationWarning
       className={`${serif.variable} ${sans.variable}`}
     >
