@@ -100,6 +100,10 @@ export default function HowItWorks() {
             label="charge"
           />
         </Reveal>
+
+        <Reveal className="how-goodbye-cables" delay={.12}>
+          <span>باي باي</span> <span className="hl">للأسلاك!</span>
+        </Reveal>
       </div>
     </section>
   );

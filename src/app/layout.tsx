@@ -5,7 +5,15 @@ import TextReveal from '@/components/animations/TextReveal';
 import ImageReveal from '@/components/animations/ImageReveal';
 import LocaleScope from '@/components/animations/LocaleScope';
 import { I18nProvider } from '@/i18n/I18nProvider';
+import WhatsAppButton from '@/components/WhatsAppButton';
+import Script from 'next/script';
 import './globals.css';
+
+const TIKTOK_PIXEL_ID = 'D5SARARC77U2HKOKSEDG';
+
+// Official TikTok Pixel base + single init. Guarded so React re-renders never
+// re-load the SDK or fire a second PageView.
+const tiktokPixel = `!function(w,d,t){w.TiktokAnalyticsObject=t;var ttq=w[t]=w[t]||[];ttq.methods=["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie"];ttq.setAndDefer=function(t,e){t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments)))}};ttq.methods.forEach(function(e){ttq.setAndDefer(ttq,e)});ttq.load=function(e,n){var i="https://analytics.tiktok.com/i18n/pixel/events.js";ttq._i=ttq._i||{};ttq._i[e]={sdkid:e,lib:i};var r=d.createElement("script");r.async=!0;r.src=i+"?sdkid="+e+"&lib="+t;var s=d.getElementsByTagName("script")[0];s.parentNode.insertBefore(r,s);var u=w[t]=w[t]||[];u.methods=ttq.methods;u.load=ttq.load;u._i=ttq._i};if(!w._ttqLoaded){ttq.load("${TIKTOK_PIXEL_ID}");w._ttqLoaded=!0}if(!w._ttqPageFired){ttq.page();w._ttqPageFired=!0}}(window,document,"ttq");`;
 
 const tajawal = Tajawal({
   subsets: ['arabic', 'latin'],
@@ -57,10 +65,16 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <I18nProvider>
           <LocaleScope>
             <LenisProvider>{children}</LenisProvider>
+            <WhatsAppButton />
             <TextReveal />
             <ImageReveal />
           </LocaleScope>
         </I18nProvider>
+        <Script
+          id="tiktok-pixel"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{ __html: tiktokPixel }}
+        />
       </body>
     </html>
   );
