@@ -988,12 +988,13 @@ body{--cream:var(--black);--cream-2:var(--black);--gray-100:var(--black)}
 
 /* The old Problem card is replaced by a short editorial problem/solution story. */
 .problem-story{padding:clamp(82px,9vw,130px) 0;background:var(--black)!important}
-.problem-story-grid{display:grid;grid-template-columns:.78fr 1.22fr;gap:clamp(34px,6vw,88px);align-items:center}
+.problem-story-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(34px,6vw,88px);align-items:center}
 .problem-story-copy{position:relative;z-index:2}
 .problem-story-copy .overline{color:var(--orange-300)!important}
 .problem-story-copy small{display:block;margin-top:34px;color:var(--orange-300);font-size:15px;font-weight:800;letter-spacing:.04em}
-.problem-story-copy h2{margin:15px 0 26px;color:var(--white);font-size:clamp(66px,8vw,124px);font-weight:800;line-height:.83;letter-spacing:-.055em}
-.problem-story-copy h2 em{font-style:normal;color:var(--orange-500)}
+.problem-story-copy h2{margin:15px 0 26px;color:var(--white);font-size:clamp(40px,3.8vw,58px);font-weight:800;line-height:1.0;letter-spacing:-.045em}
+.problem-story-copy h2 span{display:block}
+.problem-story-copy h2 em{display:block;font-style:normal;color:var(--orange-500)}
 .problem-story-copy>p{max-width:42ch;color:rgba(250,248,245,.75);font-size:clamp(17px,1.35vw,20px);font-weight:600;line-height:1.85}
 .problem-story-copy ul{display:flex;flex-wrap:wrap;gap:9px;margin:28px 0 0;padding:0;list-style:none}
 .problem-story-copy li{padding:9px 14px;border:1px solid rgba(255,121,0,.45);border-radius:999px;color:var(--white);font-size:13px;font-weight:700}
@@ -1038,7 +1039,7 @@ body{--cream:var(--black);--cream-2:var(--black);--gray-100:var(--black)}
 @media(max-width:600px){
   .problem-story{padding:68px 0}
   .problem-story-copy small{margin-top:24px}
-  .problem-story-copy h2{font-size:clamp(62px,19vw,86px)}
+  .problem-story-copy h2{font-size:clamp(44px,13vw,68px);line-height:1.02}
   .problem-featured-image{height:116vw;max-height:560px}
   .makers-text-panel{min-height:430px;padding:36px 26px;justify-content:flex-start}
   .makers-text-panel .makers-title{font-size:clamp(56px,17vw,78px)}
@@ -1055,7 +1056,7 @@ body{--cream:var(--black);--cream-2:var(--black);--gray-100:var(--black)}
    ================================================================== */
 
 /* Problem: balanced cinematic two-column layout on large screens. */
-.problem-story-grid{grid-template-columns:minmax(360px,.92fr) minmax(520px,1.08fr)!important;max-width:1240px}
+.problem-story-grid{grid-template-columns:minmax(460px,1.12fr) minmax(400px,.88fr)!important;max-width:1240px}
 .problem-story-copy{padding-inline:clamp(0px,2vw,28px)}
 .problem-featured-image{height:clamp(500px,50vw,680px)!important}
 

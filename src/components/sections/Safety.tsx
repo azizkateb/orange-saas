@@ -70,7 +70,7 @@ export default function Safety() {
       <div className="container safety-content">
         <Reveal className="safety-copy" direction="right">
           <span className="safety-kicker">{ar ? 'حماية تعمل في الخلفية' : 'PROTECTION IN THE BACKGROUND'}</span>
-          <h2>{ar ? <>يشحن.<br /><em>ويراقب.</em></> : <>Charges.<br /><em>And watches.</em></>}</h2>
+          <h2>{ar ? <>اشحن<br /><em>وانت مرتاح</em></> : <>Charges.<br /><em>And watches.</em></>}</h2>
           <p>{ar
             ? 'حساس Thermistor يراقب حرارة Mini Orange باستمرار، ويفصل تلقائيًا عند أي ارتفاع غير طبيعي، مع أربعة أنظمة حماية مستقلة تعمل في الخلفية.'
             : 'A Thermistor continuously monitors Mini Orange temperature and disconnects automatically if it rises abnormally, backed by four independent protection systems.'}</p>

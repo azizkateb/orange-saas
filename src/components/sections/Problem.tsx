@@ -32,11 +32,11 @@ export default function Problem() {
     <section id="problem" className="problem problem-story" ref={sectionRef}>
       <div className="container problem-story-grid">
         <Reveal className="problem-story-copy" direction="right">
-          <span className="overline">{ar ? 'المشكلة التي يحلها' : 'THE PROBLEM IT SOLVES'}</span>
-          <small>{ar ? 'قطعة واحدة فقط' : 'ONE PIECE ONLY'}</small>
-          <h2>{ar ? <>لا أسلاك<br /><em>بعد الآن.</em></> : <>No more<br /><em>cables.</em></>}</h2>
+          <span className="overline">{ar ? 'المشكلة اللي يفكك منها' : 'THE PROBLEM IT SOLVES'}</span>
+          <small>{ar ? 'قطعة وحدة وتكفيك' : 'ONE PIECE ONLY'}</small>
+          <h2>{ar ? <><span>أنسى هم الأسلاك</span><em>والتشابك اللي يرفع الضغط.</em></> : <>No more<br /><em>cables.</em></>}</h2>
           <p>{ar
-            ? 'لا تحتاج باوربانك وكابل وقطع إضافية. Mini Orange وحده يتصل مباشرة بجهازك ويمنحك الطاقة وقت الحاجة.'
+            ? 'فكّنا من الحوسة: لا عاد تشيل هم باوربانك كبير وسلك طويل وشنطة أغراض، Mini Orange يشبك على جوالك مباشرة ويعطيه الطاقة وأنت ماشي.'
             : 'No power bank, cable and extra pieces. Mini Orange alone plugs directly into your device whenever you need power.'}</p>
           <ul>
             <li>{ar ? 'موصل مدمج' : 'Built-in connector'}</li>

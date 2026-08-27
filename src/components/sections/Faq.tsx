@@ -20,14 +20,14 @@ function FaqItem({ q, a }: { q: string; a: string }) {
 export default function Faq() {
   const { locale } = useI18n(); const ar = locale === 'ar';
   const items = ar ? [
-    ['هل يناسب جهازي؟','يتوافق مع الأجهزة التي تستخدم منفذ Type-C، ومنها هواتف كثيرة ويد البلايستيشن والسماعات والأجهزة الصغيرة.'],
-    ['كم تبلغ سعته؟','سعته 5000mAh، مناسبة لدفعة شحن يومية عملية عندما تكون خارج المنزل.'],
-    ['هل أحتاج كابلًا لاستخدامه؟','لا. الموصل مدمج ويتصل مباشرة بجهازك. ويمكن شحن Mini Orange نفسه من منفذ Type-C.'],
-    ['هل يمكن استخدام الهاتف أثناء الشحن؟','نعم. الستاند المدمج يثبت هاتفك أمامك أثناء الشحن.'],
-    ['ما مدة شحن Mini Orange؟','يستغرق الشحن الكامل حوالي 40 دقيقة بحسب مصدر الطاقة المستخدم.'],
-    ['هل الشحن آمن؟','نعم. يحتوي على أربع طبقات حماية من الحرارة والتيار والشحن الزائد والقصر الكهربائي.'],
-    ['ما الضمان؟','ضمان لمدة سنتين ضد عيوب التصنيع، مع دعم مباشر بعد الشراء.'],
-    ['هل التوصيل مجاني؟','نعم، التوصيل مجاني إلى كافة المناطق المشمولة في متجر Orange.']
+    ['يناسب جوالي؟','يركب على الأجهزة اللي بمنفذ Type-C، زي أغلب الجوالات، يد البلايستيشن، السماعات، والأجهزة الصغار.'],
+    ['كم سعته؟','سعته 5000mAh، ممتازة تعطيك شحنة تسرعك وتكفيك طول ما أنت برا البيت.'],
+    ['أحتاج سلك عشانه؟','أبداً. القطعة راكبة فيه وارمي السلك ولا تشيل همه، وينشحن هو نفسه من أي منفذ Type-C.'],
+    ['أقدر أستخدم جوالي وهو ينشحن؟','إيه نعم، وفيه ستاند خلفي لو حبيت تثبت الجوال وانت تستخدمه ياوحش'],
+    ['كم يطول لين يشحن جهازي Mini Orange؟','يفلل ويشحن لك كامل بحدود 40 دقيقة، على حسب نوع جوالك او الجهاز الي تشحنه'],
+    ['آمن ولا يخوف؟','آمن مليون بالمية؛ فيه 4 طبقات حماية تحميه من الحرارة، التماس التيار، الشحن الزائد، والقصر الكهربائي.'],
+    ['وش وضعه من الضمان؟','مضمّن سنتين كاملة ضد عيوب التصنيع، ومعك دعم فني يوقف معك أول بأول حتى بعد ما تشتريه.'],
+    ['التوصيل بفلوس ولا مجاني؟','التوصيل ب 9ريال للطلبات الي اقل من 149ريال، يوصلك لين باب بيتك']
   ] : [
     ['Will it fit my device?','It works with Type-C devices, including many phones, PlayStation controllers, earbuds and small electronics.'],
     ['What is its capacity?','5000mAh, designed as a practical daily boost while you are away from home.'],
@@ -38,5 +38,5 @@ export default function Faq() {
     ['What is the warranty?','A two-year warranty against manufacturing defects, with direct after-sales support.'],
     ['Is delivery free?','Yes, free delivery is available across the regions covered by the Orange store.']
   ];
-  return <section id="faq" className="faq"><div className="container faq-grid"><Reveal className="faq-head"><span className="overline">{ar ? 'قبل أن تطلب' : 'BEFORE YOU ORDER'}</span><h2 className="sec-title">{ar ? 'كل ما تحتاج معرفته.' : 'Everything you need to know.'}</h2><p>{ar ? 'إجابات مباشرة على أهم الأسئلة قبل الشراء.' : 'Straight answers to the questions that matter before checkout.'}</p></Reveal><div className="faq-list">{items.map((x,i) => <Reveal key={x[0]} delay={i * .035}><FaqItem q={x[0]} a={x[1]} /></Reveal>)}</div></div></section>;
+  return <section id="faq" className="faq"><div className="container faq-grid"><Reveal className="faq-head"><span className="overline">{ar ? 'قبل لا تطلب' : 'BEFORE YOU ORDER'}</span><h2 className="sec-title">{ar ? 'كل اللي يهمك تعرفه.' : 'Everything you need to know.'}</h2><p>{ar ? 'إجابات كاش وعالماشي لكل الأسئلة اللي فبالك قبل تشتريه.' : 'Straight answers to the questions that matter before checkout.'}</p></Reveal><div className="faq-list">{items.map((x,i) => <Reveal key={x[0]} delay={i * .035}><FaqItem q={x[0]} a={x[1]} /></Reveal>)}</div></div></section>;
 }

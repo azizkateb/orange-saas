@@ -82,7 +82,8 @@ export default function Hero() {
       <div className="container hero-cream-grid">
         <div className="hero-cream-copy" ref={copyRef}>
           <h1 className="hero-cream-title">
-            {t('hero.titlePre')}<strong>{t('hero.titleStrong')}</strong><br />{t('hero.titleLine2')}
+            {t('hero.titlePre')}<strong>{t('hero.titleStrong')}</strong><br />
+            {t('hero.titleLine2')} <strong>{t('hero.titleStrong2')}</strong>
           </h1>
           <div className="hero-cream-features">
             {features.map((text, i) => (
