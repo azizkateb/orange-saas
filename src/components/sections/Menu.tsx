@@ -35,7 +35,7 @@ export default function Menu() {
       <div className="container">
         <div className="menu-head">
           <h2 className="sec-title">{t('menu.title')}</h2>
-          <a className="btn-lime" href="#menu" onClick={(e) => { e.preventDefault(); scrollToSection('#recipes'); }}>
+          <a className="btn-lime" href="#comparison" onClick={(e) => { e.preventDefault(); scrollToSection('#comparison'); }}>
             {t('menu.viewMenu')}
           </a>
         </div>

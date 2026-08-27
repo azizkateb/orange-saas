@@ -17,16 +17,16 @@
         "label": "Product"
       },
       {
-        "href": "#makers",
-        "label": "Why Mini Orange"
+        "href": "#comparison",
+        "label": "Comparison"
       },
       {
-        "href": "#how",
-        "label": "How it works"
+        "href": "#offers",
+        "label": "Offers"
       },
       {
-        "href": "#recipes",
-        "label": "Real use"
+        "href": "#faq",
+        "label": "FAQ"
       }
     ],
     "addressLine1": "20W fast charging",
@@ -120,26 +120,6 @@
     "viewMenu": "See how it works",
     "imageAlt": "Pocket-size Mini Orange"
   },
-  "recipes": {
-    "title": "Real-life use",
-    "buyNow": "Buy now",
-    "ctaTitle": "Extra power for wherever life takes you",
-    "ctaText": "Ready for your next charge? Take Mini Orange with you and order now.",
-    "items": [
-      {
-        "tag": "Gaming",
-        "name": "Keep playing without a long cable"
-      },
-      {
-        "tag": "Phone",
-        "name": "Use your phone while it charges"
-      },
-      {
-        "tag": "Travel",
-        "name": "Backup power that will not weigh you down"
-      }
-    ]
-  },
   "footer": {
     "tagline": "Mini Orange: extra power always with you, in a smaller, easier form.",
     "store": {
@@ -153,14 +133,14 @@
           "Home",
           "Benefits",
           "How it works",
-          "Real use"
+          "Comparison"
         ]
       },
       {
         "title": "Before buying",
         "links": [
           "Compatibility",
-          "Charging",
+          "Offers",
           "Protection",
           "Warranty"
         ]

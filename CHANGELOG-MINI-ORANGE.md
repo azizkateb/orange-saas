@@ -50,3 +50,22 @@ No CSS, GSAP plan, Lenis provider, animation component, section structure, page 
 - Restored the existing PromoBand in its original position between Makers and Recipes.
 - Preserved its original component, two-column layout, responsive stacking, and 3.5s GSAP slide-in.
 - Replaced only the potato-box image with `mini-orange-cutout.png`.
+
+## Client conversion sequence
+- Removed the `Recipes / تجارب حقيقية` section, component, locale content and unused asset data.
+- Added `Problem` immediately after the hero to establish the cable/bulk problem before explaining the solution.
+- Added an accessible Mini Orange vs traditional power-bank comparison.
+- Added a selectable 1/2/3-piece offer and quantity section with live total and Salla checkout CTA.
+- Added an eight-question FAQ section using native accessible `details` elements.
+- Updated navbar and footer labels to Comparison, Offers and FAQ.
+
+## Offer and FAQ polish
+- Changed only the product-image panel in Offers from orange to warm white; retained the surrounding dark section and added a product shadow for separation.
+- Replaced native FAQ details toggling with an accessible controlled accordion.
+- FAQ answers now use solid black text, 17px size, 700 weight and 1.85 line-height.
+- Open and close both animate smoothly with a natural-height `0fr → 1fr` grid transition; reduced-motion remains supported.
+
+## White surface refinements
+- Changed the Problem section background from orange to warm white and moved orange to text emphasis and the visual shadow.
+- Changed offer-option hover and selected states from orange to white; the purchase CTA remains orange.
+- Changed FAQ plus buttons to white with a dark outline; open state stays white and rotates smoothly.

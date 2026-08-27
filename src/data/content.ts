@@ -16,11 +16,6 @@ export const menuAssets = [
   { image: '/assets/how-step-04.webp', price: '99 ر.س' },
 ];
 
-export const recipeAssets = [
-  { image: '/assets/how-step-02.webp' },
-  { image: '/assets/how-it-works-poster.jpg' },
-  { image: '/assets/friesCTA.png' },
-];
 
 export const makersAssets = {
   badge: '+10K',

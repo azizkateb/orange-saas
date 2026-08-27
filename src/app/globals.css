@@ -93,7 +93,7 @@ h1,h2,h3{font-family:var(--font-serif),Georgia,serif;font-weight:600;margin:0;li
 .hero-cream-title{font-size:clamp(52px,6vw,80px);font-weight:400;margin:0 0 26px;color:var(--black);line-height:1.06;letter-spacing:-.01em;}
 .hero-cream-title strong{font-weight:700;color:var(--orange-500);}
 .hero-cream-features{display:flex;flex-direction:row;gap:16px;margin:0 0 32px;max-width:380px;}
-.hero-cream-feature{flex:1;display:flex;flex-direction:column;align-items:center;text-align:center;gap:8px;font-size:11px;line-height:1.35;color:var(--muted);}
+.hero-cream-feature{flex:1;display:flex;flex-direction:column;align-items:center;text-align:center;gap:8px;font-size:17px;font-weight:800;line-height:1.35;color:var(--black);}
 .hero-cream-feature-icon{display:grid;place-items:center;width:40px;height:40px;}
 .hero-cream-feature-icon svg{width:38px;height:38px;}
 .hero-cream-media{position:relative;min-height:700px;}
@@ -218,31 +218,7 @@ h1,h2,h3{font-family:var(--font-serif),Georgia,serif;font-weight:600;margin:0;li
 .promo-media img{opacity:1 !important;mix-blend-mode:normal;filter:none;}
 .promo .btn-lime{height:auto;padding:14px 30px;border-radius:8px;box-shadow:none;border:1px solid rgba(0,0,0,.14);background:#ff7900;color:#151515;opacity:1;}
 
-.recipes{background:var(--white);}
-.recipes .container{width:min(1320px,calc(100vw-40px));}
-.recipes-squiggle{position:absolute;top:60px;right:40px;width:120px;opacity:.85;}
-.recipes .sec-title{margin-top:8px;margin-bottom:36px;color:var(--black);}
-.recipe-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px;align-items:stretch;}
-.recipe-card{background:var(--lime);border:1.5px solid var(--graphite);border-radius:12px;padding:23px;transition:transform .3s ease,box-shadow .3s ease;}
-.recipe-card:hover{transform:translateY(-6px);box-shadow:0 18px 36px rgba(214,91,0,.22);}
-.recipe-food{height:360px;width:100%;max-width:100%;border-radius:8px;font-size:74px;overflow:hidden;}
-.recipe-food img{width:100%;height:100%;object-fit:cover;}
 .tag{display:inline-block;margin:14px 4px 8px;padding:4px 12px;border-radius:6px;background:var(--white);border:1px solid rgba(0,0,0,.18);color:var(--black);font-size:12px;font-weight:700;}
-.recipe-card h3{font-family:var(--font-sans),sans-serif;font-size:26px;font-weight:300;margin:4px;color:var(--black);}
-.recipes-buy-wrap{display:flex;justify-content:center;margin-top:48px;}
-.recipes-cta{position:relative;isolation:isolate;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:390px;width:100%;padding:56px 32px;overflow:hidden;border:1px solid var(--black);border-radius:16px;background:var(--charcoal);box-shadow:12px 12px 0 var(--black);text-align:center;}
-.recipes-cta-video,.recipes-cta-overlay{position:absolute;inset:0;width:100%;height:100%;}
-.recipes-cta-video{z-index:-2;object-fit:cover;}
-.recipes-cta-overlay{z-index:-1;background:linear-gradient(180deg,rgba(17,17,17,.42),rgba(17,17,17,.8));}
-.recipes-cta-content{max-width:680px;color:var(--white);}
-.recipes-cta-kicker{display:inline-block;margin-bottom:12px;color:var(--orange-300);font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;}
-.recipes-cta h3{font-family:var(--font-serif),serif;font-size:clamp(32px,4.5vw,60px);line-height:1.05;color:var(--white);}
-.recipes-cta p{max-width:500px;margin:16px auto 0;color:rgba(250,248,245,.86);font-size:16px;line-height:1.6;}
-.recipes-buy{display:inline-flex;align-items:center;justify-content:center;gap:22px;min-width:220px;margin-top:30px;padding:17px 24px;border:1px solid var(--black);border-radius:8px;background:var(--orange-500);color:var(--black);font-size:18px;font-weight:700;box-shadow:7px 7px 0 var(--black);transition:transform .2s ease,box-shadow .2s ease,background .2s ease;}
-.recipes-buy:hover{transform:translate(3px,3px);box-shadow:4px 4px 0 var(--black);background:var(--orange-300);}
-.recipes-buy:focus-visible{outline:3px solid var(--white);outline-offset:4px;}
-.recipes-buy-arrow{font-family:system-ui,sans-serif;font-size:22px;line-height:1;transition:transform .2s ease;}
-.recipes-buy:hover .recipes-buy-arrow{transform:translate(2px,-2px);}
 
 .footer{background:var(--cream-2);padding:72px 0 32px;}
 .footer-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1.2fr;gap:32px;}
@@ -278,8 +254,6 @@ h1,h2,h3{font-family:var(--font-serif),Georgia,serif;font-weight:600;margin:0;li
   .menu-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;border:none;overflow:visible;width:100%;max-width:100%;margin-left:0;}
   .menu-card{border:1px solid var(--graphite);border-radius:12px;}
   .menu-card + .menu-card{border-left:none;}
-  .recipe-grid{grid-template-columns:1fr;}
-  .recipe-food{height:min(56vw,360px);}
   .how-d-step:nth-child(2){margin-left:70px;}
   .how-d-step:nth-child(3){margin-left:140px;}
   .how-d-step:nth-child(4){margin-left:210px;}
@@ -320,7 +294,7 @@ h1,h2,h3{font-family:var(--font-serif),Georgia,serif;font-weight:600;margin:0;li
   .how-d-step{align-items:flex-start;gap:14px;}
   .how-d-photo{width:96px;height:96px;}
   .how-d-text{max-width:none;font-size:16px;}
-  .menu .container,.recipes .container{width:min(1320px,calc(100vw - 24px));}
+  .menu .container{width:min(1320px,calc(100vw - 24px));}
   .menu-head{flex-direction:column;align-items:flex-start;margin-bottom:24px;}
   .menu-grid{grid-template-columns:1fr;gap:12px;}
   .menu-card{padding:14px;}
@@ -332,13 +306,6 @@ h1,h2,h3{font-family:var(--font-serif),Georgia,serif;font-weight:600;margin:0;li
   .makers-copy p{max-width:none;}
   .promo-grid{gap:24px;}
   .promo-copy p{max-width:none;font-size:17px;font-weight:700;}
-  .recipe-grid{gap:16px;}
-  .recipe-card{padding:16px;}
-  .recipe-food{height:auto;aspect-ratio:1/1;}
-  .recipe-card h3{font-size:22px;}
-  .recipes-buy-wrap{margin-top:34px;}
-  .recipes-cta{min-height:360px;padding:44px 20px;box-shadow:7px 7px 0 var(--black);}
-  .recipes-buy{width:100%;min-width:0;max-width:360px;}
   .footer{padding:56px 0 28px;}
   .footer-grid{gap:24px;}
 }
@@ -421,8 +388,6 @@ h1,h2,h3{font-family:var(--font-serif),Georgia,serif;font-weight:600;margin:0;li
 /* stamp stays in same visual corner in RTL — grid column flip handles mirroring */
 [dir="rtl"] .makers-star{left:auto;right:-20px;}
 
-/* ---- Recipes (decorative squiggle) ---- */
-[dir="rtl"] .recipes-squiggle{right:auto;left:40px;}
 
 /* ---- Responsive: mirror the staircase indents at each breakpoint ---- */
 @media (max-width:980px){
@@ -474,7 +439,7 @@ h1,h2,h3{font-family:var(--font-serif),Georgia,serif;font-weight:600;margin:0;li
   [dir="rtl"] .how-d-step,[dir="rtl"] .how-d-step:nth-child(2),[dir="rtl"] .how-d-step:nth-child(3),[dir="rtl"] .how-d-step:nth-child(4){margin-left:0;margin-right:0;}
   .how-d-photo{width:clamp(82px,25vw,96px);height:clamp(82px,25vw,96px);}
   .how-d-text{min-width:0;font-size:15px;overflow-wrap:anywhere;}
-  .menu .container,.recipes .container{width:calc(100% - 24px);margin-inline:auto;}
+  .menu .container{width:calc(100% - 24px);margin-inline:auto;}
   .menu-grid{width:100%;}
   .menu-card{min-width:0;}
   .makers-grid{gap:30px;}
@@ -490,12 +455,6 @@ h1,h2,h3{font-family:var(--font-serif),Georgia,serif;font-weight:600;margin:0;li
   .promo-copy .sec-title{font-size:clamp(36px,10vw,52px);font-weight:800;overflow-wrap:anywhere;}
   .promo-media{width:100%;overflow:visible;}
   .promo-media img{width:170%;max-width:none;max-height:none;margin-inline:-35%;}
-  .recipes-squiggle{right:-18px;width:90px;}
-  [dir="rtl"] .recipes-squiggle{right:auto;left:-18px;}
-  .recipe-card{min-width:0;padding:14px;}
-  .recipe-food{height:auto;aspect-ratio:1/1;}
-  .recipe-card h3{font-size:clamp(19px,6vw,24px);overflow-wrap:anywhere;}
-  .recipes-buy{max-width:360px;width:100%;}
   .footer{padding-top:52px;}
   .footer-brand,.footer-col{min-width:0;}
   .footer-bottom{gap:8px;overflow-wrap:anywhere;}
@@ -509,3 +468,119 @@ h1,h2,h3{font-family:var(--font-serif),Georgia,serif;font-weight:600;margin:0;li
   .promo-media{max-width:100%;}
   .promo-media img{width:min(170%,540px);}
 }
+
+/* ==================================================================
+   Conversion sequence requested by the client:
+   problem → comparison → offer/quantity → FAQ.
+   Uses the current Orange / black / warm-white token system.
+   ================================================================== */
+
+/* Problem, positioned immediately after the hero */
+.problem{background:var(--white);color:var(--black);overflow:hidden;padding:clamp(82px,9vw,132px) 0}
+.problem-grid{display:grid;grid-template-columns:.82fr 1.18fr;gap:clamp(44px,7vw,110px);align-items:center}
+.problem-copy .overline{color:var(--orange-700)}
+.problem-copy .overline::before{background:var(--orange-500)}
+.problem-copy h2{font-size:clamp(46px,6vw,84px);line-height:1.02;letter-spacing:-.045em;margin:18px 0 24px}
+.problem-copy h2 em{font-style:normal;color:var(--orange-600)}
+.problem-copy>p{max-width:42ch;font-size:clamp(17px,1.4vw,20px);line-height:1.75;font-weight:600}
+.problem-visual{position:relative;min-height:520px;border:1px solid var(--graphite);border-radius:var(--r-card);background:var(--black);color:var(--white);overflow:hidden;box-shadow:10px 10px 0 var(--orange-500)}
+.problem-cable{position:absolute;width:72%;height:68%;left:-20%;top:-22%;border:18px solid var(--graphite);border-radius:50%;transform:rotate(-20deg);opacity:.75}
+.problem-visual ol{position:relative;z-index:2;margin:0;padding:42px 42px 220px;list-style:none;display:grid;gap:0}
+.problem-visual li{display:grid;grid-template-columns:48px 1fr;align-items:center;gap:16px;padding:18px 0;border-bottom:1px solid rgba(250,248,245,.16)}
+.problem-visual li b{font-size:13px;color:var(--orange-300)}
+.problem-visual li span{font-size:clamp(17px,1.4vw,21px);font-weight:700}
+.problem-answer{position:absolute;z-index:3;bottom:0;inset-inline:0;height:220px;display:flex;align-items:center;justify-content:flex-end;gap:18px;padding:12px 38px;background:var(--white);color:var(--black)}
+.problem-answer img{width:360px;height:300px;object-fit:contain;filter:drop-shadow(0 16px 22px rgba(0,0,0,.22))}
+.problem-answer span{max-width:9ch;font-size:clamp(22px,2.4vw,34px);font-weight:800;line-height:1.06}
+
+/* Comparison */
+.comparison{background:var(--white);padding:clamp(86px,10vw,150px) 0}
+.comparison-head{display:grid;grid-template-columns:1fr .7fr;column-gap:50px;align-items:end;margin-bottom:48px}
+.comparison-head .overline{grid-column:1/-1;margin-bottom:13px}
+.comparison-head p{color:var(--muted);font-size:18px;max-width:38ch;justify-self:end}
+.comparison-table{border:1px solid var(--graphite);border-radius:18px;overflow:hidden;box-shadow:7px 7px 0 var(--black)}
+.comparison-row{display:grid;grid-template-columns:1.1fr 1fr 1fr;min-height:78px;align-items:stretch;border-bottom:1px solid var(--graphite)}
+.comparison-row:last-child{border-bottom:0}
+.comparison-row>*{display:flex;align-items:center;gap:10px;padding:18px clamp(14px,2vw,30px);font-size:16px}
+.comparison-row>*+*{border-inline-start:1px solid var(--graphite)}
+.comparison-row>span{font-weight:700;background:var(--soft-white)}
+.comparison-row>strong{background:var(--orange-500);color:var(--black);font-weight:800}
+.comparison-row>b{font-weight:600;color:var(--muted);background:var(--white)}
+.comparison-row i{display:grid;place-items:center;flex:none;width:25px;height:25px;border-radius:50%;font-style:normal;background:var(--black);color:var(--white)}
+.comparison-row>b i{background:var(--warm-gray);color:var(--black)}
+.comparison-labels{min-height:64px;background:var(--black);color:var(--white)}
+.comparison-labels>span,.comparison-labels>strong,.comparison-labels>b{background:var(--black);color:var(--white);font-weight:800}
+
+/* Offers and quantity */
+.offers{background:var(--black);color:var(--white);padding:clamp(90px,10vw,150px) 0;overflow:hidden}
+.offers-head{display:grid;grid-template-columns:1fr .65fr;gap:30px;align-items:end;margin-bottom:48px}
+.offers-head .overline{grid-column:1/-1;color:var(--orange-300)}
+.offers-head .sec-title{color:var(--white)}
+.offers-head p{color:rgba(250,248,245,.7);font-size:18px;max-width:38ch}
+.offer-layout{display:grid;grid-template-columns:.82fr 1.18fr;gap:18px;align-items:stretch}
+.offer-image{border-radius:20px;overflow:visible;background:var(--white);min-height:570px;border:1px solid rgba(250,248,245,.18)}
+.offer-image img{width:100%;height:100%;object-fit:contain;padding:clamp(24px,4vw,56px);filter:drop-shadow(0 24px 34px rgba(0,0,0,.24));transform:scale(1.4);transform-origin:center}
+.offer-panel{border:1px solid rgba(250,248,245,.22);border-radius:20px;padding:clamp(18px,3vw,36px);background:var(--charcoal)}
+.offer-options{display:grid;gap:10px}
+.offer-options button{position:relative;width:100%;border:1px solid rgba(250,248,245,.18);border-radius:14px;background:transparent;color:var(--white);display:grid;grid-template-columns:26px 1fr auto;gap:14px;align-items:center;padding:20px;text-align:start;font:inherit;cursor:pointer;transition:background .25s ease,border-color .25s ease,transform .25s ease}
+.offer-options button:hover{transform:translateY(-2px);background:var(--white);color:var(--black);border-color:var(--white)}
+.offer-options button.selected{background:var(--white);color:var(--black);border-color:var(--white)}
+.offer-options button>span:nth-of-type(2){display:grid;gap:3px}
+.offer-options small{font-size:13px;opacity:.72}
+.offer-radio{width:20px;height:20px;border-radius:50%;box-shadow:inset 0 0 0 1.5px currentColor}
+.selected .offer-radio{box-shadow:inset 0 0 0 6px var(--black)}
+.offer-price{text-align:end;display:grid;gap:3px}
+.offer-price b{font-size:20px;white-space:nowrap}
+.offer-options em{position:absolute;top:-9px;inset-inline-end:14px;background:var(--white);color:var(--black);border-radius:999px;padding:3px 10px;font-size:11px;font-style:normal;font-weight:800}
+.offer-total{display:flex;align-items:end;justify-content:space-between;margin:30px 0 16px;padding-top:22px;border-top:1px solid rgba(250,248,245,.2)}
+.offer-total span{color:rgba(250,248,245,.7)}
+.offer-total strong{font-size:clamp(34px,4vw,54px);line-height:1}
+.offer-buy{display:flex;justify-content:center;align-items:center;min-height:56px;border-radius:10px;background:var(--orange-500);color:var(--black);font-size:17px;font-weight:800;transition:transform .25s ease,background .25s ease}
+.offer-buy:hover{transform:translateY(-2px);background:var(--orange-300)}
+.offer-trust{text-align:center;color:rgba(250,248,245,.58);font-size:12px;margin:13px 0 0}
+
+/* FAQ */
+.faq{background:var(--soft-white);padding:clamp(86px,10vw,145px) 0}
+.faq-grid{display:grid;grid-template-columns:.72fr 1.28fr;gap:clamp(42px,8vw,120px);align-items:start}
+.faq-head{position:sticky;top:36px}
+.faq-head .sec-title{margin:18px 0 20px;color:var(--black);font-size:clamp(42px,5vw,70px);line-height:1.02}
+.faq-head p{color:var(--muted);font-size:18px;max-width:30ch}
+.faq-list{border-top:1px solid var(--graphite)}
+.faq-item{border-bottom:1px solid var(--graphite)}
+.faq-item h3{margin:0;font-family:inherit}
+.faq-item h3 button{appearance:none;width:100%;border:0;background:transparent;color:var(--black);display:flex;align-items:center;justify-content:space-between;gap:20px;min-height:86px;padding:0;text-align:start;font:800 clamp(17px,1.45vw,21px)/1.4 var(--font-sans),sans-serif;cursor:pointer}
+.faq-item h3 button:focus-visible{outline:3px solid var(--orange-500);outline-offset:5px;border-radius:4px}
+.faq-item h3 i{display:grid;place-items:center;width:36px;height:36px;flex:none;border-radius:50%;background:var(--white);color:var(--black);border:1px solid var(--graphite);font-style:normal;font-size:25px;font-weight:400;transition:transform .42s cubic-bezier(.16,1,.3,1),background .25s ease,color .25s ease}
+.faq-item.is-open h3 i{transform:rotate(45deg);background:var(--white);color:var(--orange-700)}
+/* 0fr → 1fr animates to the answer's natural height in both directions. */
+.faq-answer{display:grid;grid-template-rows:0fr;opacity:0;transform:translateY(-8px);transition:grid-template-rows .48s cubic-bezier(.16,1,.3,1),opacity .32s ease,transform .48s cubic-bezier(.16,1,.3,1)}
+.faq-answer>div{min-height:0;overflow:hidden}
+.faq-item.is-open .faq-answer{grid-template-rows:1fr;opacity:1;transform:none}
+.faq-answer p{margin:0;padding:0 0 28px;max-width:62ch;color:var(--black);font-size:17px;line-height:1.85;font-weight:700}
+
+
+@media(max-width:980px){
+  .problem-grid,.offer-layout,.faq-grid{grid-template-columns:1fr}
+  .comparison-head,.offers-head{grid-template-columns:1fr}
+  .comparison-head p,.offers-head p{justify-self:start}
+  .problem-visual{min-height:500px}.offer-image{min-height:460px}.faq-head{position:static}
+}
+@media(max-width:767px){
+  .problem{padding:68px 0}.problem-copy h2{font-size:clamp(40px,12vw,58px)}
+  .problem-visual{min-height:510px;border-radius:16px;box-shadow:5px 5px 0 var(--orange-900)}
+  .problem-visual ol{padding:24px 20px 220px}.problem-visual li{grid-template-columns:34px 1fr;gap:10px}.problem-answer{height:210px;padding:10px 18px}.problem-answer img{width:81%;height:285px}.problem-answer span{font-size:23px}
+  .comparison-table{overflow-x:auto;border-radius:12px;box-shadow:4px 4px 0 var(--black)}
+  .comparison-row{grid-template-columns:minmax(150px,.9fr) minmax(145px,1fr) minmax(145px,1fr);min-width:440px}
+  .comparison-row>*{padding:15px 12px;font-size:14px}
+  .offers-head{margin-bottom:30px}.offer-image{min-height:360px}.offer-panel{border-radius:15px}
+  .offer-options button{grid-template-columns:22px 1fr auto;padding:17px 12px;gap:10px}.offer-price b{font-size:17px}
+  .faq-grid{gap:26px}.faq-item h3 button{min-height:76px}.faq-head .sec-title{font-size:42px}
+}
+@media(max-width:420px){
+  .problem-answer img{width:78%}.problem-answer span{font-size:20px}
+  .offer-options button{grid-template-columns:20px 1fr}.offer-price{grid-column:2;text-align:start}.offer-options em{top:-8px}
+}
+
+@media(prefers-reduced-motion:reduce){.faq-answer,.faq-item h3 i{transition:none!important}}
+
+.offer-options button.selected em{background:var(--orange-500);color:var(--black)}
