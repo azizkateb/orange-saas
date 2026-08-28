@@ -52,13 +52,30 @@ function checkoutUrlFrom(payload: unknown): string | undefined {
   return p?.data?.checkout_url ?? (p as { checkout_url?: string }).checkout_url;
 }
 
+// Salla's hosted checkout page follows the store's default language unless we
+// pin it via the `lang` query param. Force it to match the storefront locale
+// so Arabic visitors land on an Arabic checkout.
+function withLang(url: string | undefined, locale: string | undefined): string | undefined {
+  if (!url) return url;
+  const lang = locale === 'en' ? 'en' : 'ar';
+  try {
+    const u = new URL(url);
+    u.searchParams.set('lang', lang);
+    return u.toString();
+  } catch {
+    return url.includes('?') ? `${url}&lang=${lang}` : `${url}?lang=${lang}`;
+  }
+}
+
 export async function POST(req: NextRequest) {
   let quantity: number;
   let requestId: string | undefined;
+  let locale: string = 'ar';
   try {
     const body = await req.json();
     quantity = Number(body?.quantity);
     requestId = typeof body?.requestId === 'string' ? body.requestId : undefined;
+    locale = body?.locale === 'en' ? 'en' : 'ar';
   } catch {
     return NextResponse.json({ message: 'طلب غير صالح.' }, { status: 400 });
   }
@@ -73,7 +90,7 @@ export async function POST(req: NextRequest) {
     const existing = checkoutByRequest.get(requestId);
     if (existing && Date.now() - existing.at < DEDUP_TTL) {
       return NextResponse.json({
-        checkout_url: existing.checkoutUrl,
+        checkout_url: withLang(existing.checkoutUrl, locale),
         total: existing.total,
         currency: existing.currency,
         product_id: existing.productId,
@@ -162,7 +179,7 @@ export async function POST(req: NextRequest) {
     }
 
     return NextResponse.json({
-      checkout_url: checkoutUrl,
+      checkout_url: withLang(checkoutUrl, locale),
       total,
       currency,
       product_id: offer.productId,

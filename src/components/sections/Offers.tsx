@@ -118,7 +118,7 @@ export default function Offers() {
       const res = await fetch('/api/checkout', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ quantity: q, requestId }),
+        body: JSON.stringify({ quantity: q, requestId, locale }),
       });
       const data = await res.json().catch(() => ({}) as {
         checkout_url?: string;
