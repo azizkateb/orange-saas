@@ -476,6 +476,12 @@ h1,h2,h3{font-family:var(--font-serif),Georgia,serif;font-weight:600;margin:0;li
 .offer-buy-error{margin:12px 0 0;font-size:14px;font-weight:700;color:#ffb266;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
 .offer-buy-retry{background:none;border:1px solid rgba(255,178,102,.6);color:#ffb266;border-radius:8px;padding:6px 14px;font:inherit;font-weight:800;cursor:pointer}
 .offer-buy-retry:hover{background:rgba(255,178,102,.12)}
+.offer-price-error{margin:0 0 16px;font-size:15px;font-weight:800;color:#ffb266}
+.offer-notice{margin:12px 0 0;font-size:14px;font-weight:700;color:#ffb266}
+.offer-skeleton{display:inline-block;min-width:64px;height:.9em;border-radius:6px;background:linear-gradient(90deg,rgba(250,248,245,.12),rgba(250,248,245,.28),rgba(250,248,245,.12));background-size:200% 100%;animation:offerShimmer 1.2s ease-in-out infinite}
+.offer-price s{display:block;font-size:12px;font-weight:600;color:rgba(250,248,245,.5);margin-bottom:2px}
+@keyframes offerShimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+.offer-options button:disabled{cursor:progress;opacity:.7}
 .offer-trust{text-align:center;color:rgba(250,248,245,.58);font-size:12px;margin:13px 0 0}
 
 /* FAQ */

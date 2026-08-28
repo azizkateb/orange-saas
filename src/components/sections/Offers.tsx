@@ -1,51 +1,147 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Reveal from '@/components/animations/Reveal';
 import { useI18n } from '@/i18n/I18nProvider';
 
-const PRODUCT_ID = '675834151';
+const QUANTITIES = [1, 2, 3];
+
+type PriceInfo = {
+  quantity: number;
+  product_id: string;
+  pieces: number;
+  available: boolean;
+  currency: string;
+  sub_total: number;
+  total: number;
+  tax: number;
+  discount: number;
+  original_total: number;
+  per_piece: number;
+};
+
+type Status = 'idle' | 'processing' | 'error' | 'price-updated';
+
+const TITLES = {
+  ar: ['قطعة واحدة', 'قطعتان', 'ثلاث قطع'],
+  en: ['One piece', 'Two pieces', 'Three pieces'],
+};
+const STORE_LABEL = { ar: 'ر.س', en: 'SAR' };
 
 export default function Offers() {
   const { locale } = useI18n();
   const ar = locale === 'ar';
   const [selected, setSelected] = useState(2);
-  const [status, setStatus] = useState<'idle' | 'processing' | 'error'>('idle');
+  const [prices, setPrices] = useState<PriceInfo[] | null>(null);
+  const [priceError, setPriceError] = useState(false);
+  const [status, setStatus] = useState<Status>('idle');
+  const [notice, setNotice] = useState<string | null>(null);
 
-  const offers = ar ? [
-    { q: 1, title: 'قطعة واحدة', price: 99, unit: '99 للقطعة', note: 'للاستخدام الشخصي' },
-    { q: 2, title: 'قطعتان', price: 168, unit: '84 للقطعة', note: 'وفر 30 ر.س', best: true },
-    { q: 3, title: 'ثلاث قطع', price: 230, unit: '76.67 للقطعة', note: 'وفر 67 ر.س' }
-  ] : [
-    { q: 1, title: 'One piece', price: 99, unit: 'SAR 99 each', note: 'Personal use' },
-    { q: 2, title: 'Two pieces', price: 168, unit: 'SAR 84 each', note: 'Save SAR 30', best: true },
-    { q: 3, title: 'Three pieces', price: 230, unit: 'SAR 76.67 each', note: 'Save SAR 67' }
-  ];
-  const current = offers.find(x => x.q === selected)!;
+  useEffect(() => {
+    let active = true;
+    fetch('/api/pricing')
+      .then(async (r) => {
+        if (!r.ok) throw new Error('pricing failed');
+        const data = await r.json();
+        if (!active) return;
+        setPrices(data.prices as PriceInfo[]);
+        setPriceError(false);
+      })
+      .catch(() => {
+        if (!active) return;
+        setPrices(null);
+        setPriceError(true);
+      });
+    return () => { active = false; };
+  }, []);
+
+  const viewedRef = useRef(false);
+  useEffect(() => {
+    if (!prices || viewedRef.current) return;
+    viewedRef.current = true;
+    const info = priceFor(selected) ?? prices[0];
+    if (info) ttqApi()?.track?.('ViewContent', buildProductPayload(info, info.total));
+  }, [prices, selected]);
+
+  const lastCartRef = useRef<number | null>(null);
+  useEffect(() => {
+    if (!prices) return;
+    const info = priceFor(selected);
+    if (!info || lastCartRef.current === selected) return;
+    lastCartRef.current = selected;
+    ttqApi()?.track?.('AddToCart', buildProductPayload(info, info.total));
+  }, [selected, prices]);
+
+  const priceFor = (q: number) => prices?.find((p) => p.quantity === q);
+
+  const ttqApi = () =>
+    (window as unknown as { ttq?: { track?: (e: string, p: object) => void } }).ttq;
+
+  const contentIdFor = (info: PriceInfo) =>
+    String(info.product_id || '675834151');
+
+  const buildProductPayload = (info: PriceInfo, value: number) => {
+    const id = contentIdFor(info);
+    return {
+      content_type: 'product',
+      content_ids: [id],
+      contents: [
+        {
+          content_id: id,
+          content_name: 'Mini Orange',
+          quantity: info.pieces,
+          price: Number(info.per_piece),
+        },
+      ],
+      quantity: info.pieces,
+      value,
+      currency: 'SAR',
+    };
+  };
 
   const buy = async () => {
     if (status === 'processing') return;
+    if (priceError || !prices) return;
+    const q = selected;
+    const expected = priceFor(q);
+    if (!expected) return;
+
     setStatus('processing');
+    setNotice(null);
     try {
       const res = await fetch('/api/checkout', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ quantity: selected }),
+        body: JSON.stringify({ quantity: q }),
       });
-      const data = await res.json().catch(() => ({}));
+      const data = await res.json().catch(() => ({} as { checkout_url?: string; total?: number }));
       if (!res.ok || !data.checkout_url) {
         throw new Error(data?.message || 'checkout_failed');
       }
 
-      const ttq = (window as unknown as { ttq?: { track?: (e: string, p: object) => void } }).ttq;
+      const sallaTotal = typeof data.total === 'number' ? data.total : expected.total;
+      if (Math.abs(sallaTotal - expected.total) > 0.001) {
+        setPrices((prev) =>
+          prev
+            ? prev.map((p) =>
+                p.quantity === q
+                  ? { ...p, total: sallaTotal, original_total: sallaTotal, discount: 0, per_piece: Number((sallaTotal / q).toFixed(2)) }
+                  : p
+              )
+            : prev
+        );
+        setStatus('price-updated');
+        setNotice(
+          ar
+            ? 'تم تحديث السعر حسب متجر سلة، حاول مرة أخرى.'
+            : 'Price updated from Salla. Please try again.'
+        );
+        return;
+      }
+
+      const ttq = ttqApi();
       if (ttq && typeof ttq.track === 'function') {
-        ttq.track('InitiateCheckout', {
-          value: current.price,
-          currency: 'SAR',
-          quantity: selected,
-          content_ids: [PRODUCT_ID],
-          contents: [{ id: PRODUCT_ID, quantity: selected, price: current.price }],
-        });
+        ttq.track('InitiateCheckout', buildProductPayload(expected, sallaTotal));
       }
 
       window.location.assign(data.checkout_url);
@@ -54,6 +150,63 @@ export default function Offers() {
     }
   };
 
+  const label = STORE_LABEL[ar ? 'ar' : 'en'];
+
+  const renderOption = (q: number, index: number) => {
+    const p = priceFor(q);
+    const best = index === 1;
+    const loading = !priceError && !p;
+    const unavailable = !!p && p.available === false;
+    const discounted = !!p && p.available && p.discount > 0;
+
+    return (
+      <button
+        key={q}
+        type="button"
+        className={selected === q ? 'selected' : ''}
+        onClick={() => setSelected(q)}
+        aria-pressed={selected === q}
+        disabled={priceError || unavailable}
+      >
+        <span className="offer-radio" />
+        <span>
+          <b>{TITLES[ar ? 'ar' : 'en'][index]}</b>
+          {loading ? (
+            <small className="offer-skeleton" />
+          ) : p ? (
+            <small>
+              {unavailable
+                ? (ar ? 'غير متوفر' : 'Unavailable')
+                : discounted
+                ? ar
+                  ? `وفر ${p.discount} ${label}`
+                  : `Save ${p.discount} ${label}`
+                : ar
+                ? `سعر القطعة ${p.per_piece} ${label}`
+                : `${label} ${p.per_piece} each`}
+            </small>
+          ) : null}
+        </span>
+        <span className="offer-price">
+          {loading ? (
+            <b className="offer-skeleton" />
+          ) : p ? (
+            <>
+              {discounted && <s>{p.original_total} {label}</s>}
+              <b>{unavailable ? '—' : `${p.total} ${label}`}</b>
+            </>
+          ) : null}
+        </span>
+        {best && <em>{ar ? 'الأكثر طلبًا' : 'Most popular'}</em>}
+      </button>
+    );
+  };
+
+  const current = priceFor(selected);
+  const loading = !priceError && !prices;
+  const selectedAvailable = !!current && current.available !== false;
+  const canCheckout = !priceError && !!prices && selectedAvailable && status !== 'processing';
+
   return (
     <section id="offers" className="offers">
       <div className="container">
@@ -61,18 +214,35 @@ export default function Offers() {
         <div className="offer-layout">
           <Reveal className="offer-image" direction="right"><img src="/assets/mini-orange-cutout.png" alt="Mini Orange" /></Reveal>
           <Reveal className="offer-panel" direction="left">
-            <div className="offer-options">{offers.map(o => <button key={o.q} type="button" className={selected === o.q ? 'selected' : ''} onClick={() => setSelected(o.q)} aria-pressed={selected === o.q}><span className="offer-radio" /><span><b>{o.title}</b><small>{o.note}</small></span><span className="offer-price"><b>{o.price} {ar ? 'ر.س' : 'SAR'}</b><small>{o.unit}</small></span>{o.best && <em>{ar ? 'الأكثر طلبًا' : 'Most popular'}</em>}</button>)}</div>
-            <div className="offer-total"><span>{ar ? 'الإجمالي' : 'Total'}</span><strong>{current.price} {ar ? 'ر.س' : 'SAR'}</strong></div>
+            {priceError ? (
+              <p className="offer-price-error" role="alert">{ar ? 'تعذر تحميل السعر' : 'Could not load pricing'}</p>
+            ) : (
+              <div className="offer-options">
+                {QUANTITIES.map((q, i) => renderOption(q, i))}
+              </div>
+            )}
+            <div className="offer-total">
+              <span>{ar ? 'الإجمالي' : 'Total'}</span>
+              <strong>
+                {loading || !current
+                  ? '—'
+                  : `${current.total} ${label}`}
+              </strong>
+            </div>
             <button
               className="offer-buy"
               type="button"
               onClick={buy}
-              disabled={status === 'processing'}
+              disabled={!canCheckout}
               aria-busy={status === 'processing'}
             >
-              {status === 'processing'
-                ? (ar ? 'جاري تحويلك للدفع...' : 'Redirecting to checkout...')
-                : (ar ? `اطلب ${current.title} الآن` : `Order ${current.title}`)}
+            {status === 'processing'
+              ? (ar ? 'جاري تحويلك للدفع...' : 'Redirecting to checkout...')
+              : (current && !current.available
+                  ? (ar ? 'غير متوفر' : 'Unavailable')
+                  : current
+                  ? (ar ? `اطلب ${TITLES.ar[QUANTITIES.indexOf(selected)]} الآن` : `Order ${TITLES.en[QUANTITIES.indexOf(selected)]}`)
+                  : (ar ? 'اختر الكمية' : 'Choose a quantity'))}
             </button>
             {status === 'error' && (
               <p className="offer-buy-error" role="alert">
@@ -80,6 +250,7 @@ export default function Offers() {
                 <button type="button" className="offer-buy-retry" onClick={buy}>{ar ? 'إعادة المحاولة' : 'Retry'}</button>
               </p>
             )}
+            {notice && <p className="offer-notice" role="status">{notice}</p>}
             <p className="offer-trust">{ar ? 'دفع آمن عبر سلة · توصيل مجاني · ضمان سنتين' : 'Secure Salla checkout · Free delivery · Two-year warranty'}</p>
           </Reveal>
         </div>
