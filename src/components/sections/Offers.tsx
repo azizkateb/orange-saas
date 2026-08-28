@@ -60,28 +60,22 @@ export default function Offers() {
     if (!prices || viewedRef.current) return;
     viewedRef.current = true;
     const info = priceFor(selected) ?? prices[0];
-    if (info) ttqApi()?.track?.('ViewContent', buildProductPayload(info, info.total));
+    if (info) ttqApi()?.track?.('ViewContent', buildProductPayload(info.product_id, info.pieces, info.total));
   }, [prices, selected]);
-
-  const lastCartRef = useRef<number | null>(null);
-  useEffect(() => {
-    if (!prices) return;
-    const info = priceFor(selected);
-    if (!info || lastCartRef.current === selected) return;
-    lastCartRef.current = selected;
-    ttqApi()?.track?.('AddToCart', buildProductPayload(info, info.total));
-  }, [selected, prices]);
 
   const priceFor = (q: number) => prices?.find((p) => p.quantity === q);
 
   const ttqApi = () =>
-    (window as unknown as { ttq?: { track?: (e: string, p: object) => void } }).ttq;
+    (window as unknown as {
+      ttq?: { track?: (e: string, p: object, opts?: object) => void };
+    }).ttq;
 
-  const contentIdFor = (info: PriceInfo) =>
-    String(info.product_id || '675834151');
-
-  const buildProductPayload = (info: PriceInfo, value: number) => {
-    const id = contentIdFor(info);
+  const buildProductPayload = (
+    productId: string,
+    pieces: number,
+    total: number
+  ) => {
+    const id = String(productId || '675834151');
     return {
       content_type: 'product',
       content_ids: [id],
@@ -89,63 +83,71 @@ export default function Offers() {
         {
           content_id: id,
           content_name: 'Mini Orange',
-          quantity: info.pieces,
-          price: Number(info.per_piece),
+          quantity: pieces,
+          price: Number((total / pieces).toFixed(2)),
         },
       ],
-      quantity: info.pieces,
-      value,
+      quantity: pieces,
+      value: total,
       currency: 'SAR',
     };
   };
 
+  const checkoutLock = useRef(false);
+
   const buy = async () => {
+    if (checkoutLock.current) return;
     if (status === 'processing') return;
     if (priceError || !prices) return;
     const q = selected;
     const expected = priceFor(q);
     if (!expected) return;
 
+    // Synchronous lock: prevents duplicate submissions from double-clicks
+    // or re-entrant calls before any async work begins.
+    checkoutLock.current = true;
     setStatus('processing');
     setNotice(null);
+
+    const requestId =
+      typeof crypto !== 'undefined' && 'randomUUID' in crypto
+        ? crypto.randomUUID()
+        : `${Date.now()}-${Math.random().toString(16).slice(2)}`;
+
     try {
       const res = await fetch('/api/checkout', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ quantity: q }),
+        body: JSON.stringify({ quantity: q, requestId }),
       });
-      const data = await res.json().catch(() => ({} as { checkout_url?: string; total?: number }));
+      const data = await res.json().catch(() => ({}) as {
+        checkout_url?: string;
+        total?: number;
+        product_id?: string;
+        pieces?: number;
+      });
       if (!res.ok || !data.checkout_url) {
         throw new Error(data?.message || 'checkout_failed');
       }
 
       const sallaTotal = typeof data.total === 'number' ? data.total : expected.total;
-      if (Math.abs(sallaTotal - expected.total) > 0.001) {
-        setPrices((prev) =>
-          prev
-            ? prev.map((p) =>
-                p.quantity === q
-                  ? { ...p, total: sallaTotal, original_total: sallaTotal, discount: 0, per_piece: Number((sallaTotal / q).toFixed(2)) }
-                  : p
-              )
-            : prev
-        );
-        setStatus('price-updated');
-        setNotice(
-          ar
-            ? 'تم تحديث السعر حسب متجر سلة، حاول مرة أخرى.'
-            : 'Price updated from Salla. Please try again.'
-        );
-        return;
-      }
+      const sallaProductId = data.product_id || expected.product_id;
+      const sallaPieces = typeof data.pieces === 'number' ? data.pieces : expected.pieces;
 
+      // Fire InitiateCheckout exactly once, only after a valid Salla URL.
       const ttq = ttqApi();
       if (ttq && typeof ttq.track === 'function') {
-        ttq.track('InitiateCheckout', buildProductPayload(expected, sallaTotal));
+        ttq.track(
+          'InitiateCheckout',
+          buildProductPayload(sallaProductId, sallaPieces, sallaTotal),
+          { event_id: requestId }
+        );
       }
 
+      // Do not release the lock before redirecting.
       window.location.assign(data.checkout_url);
     } catch {
+      checkoutLock.current = false;
       setStatus('error');
     }
   };

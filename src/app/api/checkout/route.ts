@@ -7,14 +7,13 @@ const STORE_IDENTIFIER = 'orange-sa.com';
 const API_BASE = 'https://api.salla.dev/store/v2/checkout';
 
 // Each offer maps to its own Salla product (no shared option/variant).
-// Discovered from the public product pages:
-//   Offer 1 (1pc / 99)  -> orange-sa.com/ar/mini-orange/p675834151
-//   Offer 2 (2pc / 168) -> orange-sa.com/ar/mini-orange/p1723041231 (MINI-ORANGE-2)
-//   Offer 3 (3pc / 230) -> orange-sa.com/ar/mini-orange/p1627582468 (MINI-ORANGE-3)
-const OFFERS: Record<number, { product_id: string; pieces: number }> = {
-  1: { product_id: '675834151', pieces: 1 },
-  2: { product_id: '1723041231', pieces: 2 },
-  3: { product_id: '1627582468', pieces: 3 },
+//   Offer 1 (1pc / 99)  -> 675834151
+//   Offer 2 (2pc / 168) -> 1723041231
+//   Offer 3 (3pc / 230) -> 1627582468
+const OFFERS: Record<number, { productId: string; pieces: number }> = {
+  1: { productId: '675834151', pieces: 1 },
+  2: { productId: '1723041231', pieces: 2 },
+  3: { productId: '1627582468', pieces: 3 },
 };
 
 const HEADERS: Record<string, string> = {
@@ -25,6 +24,13 @@ const HEADERS: Record<string, string> = {
   'Content-Type': 'application/json',
   Accept: 'application/json',
 };
+
+// Request-level deduplication. A retried/double-clicked request that carries
+// the same requestId reuses the original checkout URL instead of creating a
+// second Salla cart.
+const DEDUP_TTL = 10 * 60 * 1000;
+const checkoutByRequest = new Map<string, { at: number; checkoutUrl: string; total: number; currency: string; productId: string; pieces: number }>();
+const inFlight = new Set<string>();
 
 type SallaResponse = {
   success?: boolean;
@@ -48,9 +54,11 @@ function checkoutUrlFrom(payload: unknown): string | undefined {
 
 export async function POST(req: NextRequest) {
   let quantity: number;
+  let requestId: string | undefined;
   try {
     const body = await req.json();
     quantity = Number(body?.quantity);
+    requestId = typeof body?.requestId === 'string' ? body.requestId : undefined;
   } catch {
     return NextResponse.json({ message: 'طلب غير صالح.' }, { status: 400 });
   }
@@ -59,6 +67,30 @@ export async function POST(req: NextRequest) {
   if (!offer) {
     return NextResponse.json({ message: 'الكمية غير صالحة.' }, { status: 400 });
   }
+
+  // Deduplicate by requestId (double-click / network retry).
+  if (requestId) {
+    const existing = checkoutByRequest.get(requestId);
+    if (existing && Date.now() - existing.at < DEDUP_TTL) {
+      return NextResponse.json({
+        checkout_url: existing.checkoutUrl,
+        total: existing.total,
+        currency: existing.currency,
+        product_id: existing.productId,
+        pieces: existing.pieces,
+        deduplicated: true,
+      });
+    }
+  }
+
+  // Only one cart per requestId at a time.
+  if (requestId && inFlight.has(requestId)) {
+    return NextResponse.json(
+      { message: 'جارٍ معالجة طلبك، انتظر قليلًا.' },
+      { status: 429 }
+    );
+  }
+  if (requestId) inFlight.add(requestId);
 
   try {
     const genRes = await fetch(`${API_BASE}/generate?include_items=true`, {
@@ -82,12 +114,13 @@ export async function POST(req: NextRequest) {
       );
     }
 
+    // Add ONLY the selected product, exactly once, with Salla quantity 1.
     const addRes = await fetch(`${API_BASE}/${cartId}/items?include_items=true`, {
       method: 'POST',
       headers: HEADERS,
       body: JSON.stringify({
         identifier_type: 'id',
-        identifier: offer.product_id,
+        identifier: offer.productId,
         quantity: 1,
       }),
     });
@@ -117,11 +150,22 @@ export async function POST(req: NextRequest) {
     const total = Number(amounts.total?.amount?.value ?? 0);
     const currency = amounts.total?.amount?.currency || add?.data?.currency?.code || 'SAR';
 
+    if (requestId) {
+      checkoutByRequest.set(requestId, {
+        at: Date.now(),
+        checkoutUrl,
+        total,
+        currency,
+        productId: offer.productId,
+        pieces: offer.pieces,
+      });
+    }
+
     return NextResponse.json({
       checkout_url: checkoutUrl,
       total,
       currency,
-      product_id: offer.product_id,
+      product_id: offer.productId,
       pieces: offer.pieces,
     });
   } catch (err) {
@@ -130,5 +174,7 @@ export async function POST(req: NextRequest) {
       { message: 'تعذر الاتصال بمتجر سلة. حاول مرة أخرى.' },
       { status: 502 }
     );
+  } finally {
+    if (requestId) inFlight.delete(requestId);
   }
 }

@@ -2,7 +2,6 @@
 
 import { useEffect, useRef } from 'react';
 import { useI18n } from '@/i18n/I18nProvider';
-import { scrollToSection } from '@/lib/scrollTo';
 import { gsap } from '@/lib/gsap';
 
 function IconFastCharge() {
@@ -93,9 +92,6 @@ export default function Hero() {
               </div>
             ))}
           </div>
-          <a className="btn-order" href="#offers" onClick={(e) => { e.preventDefault(); scrollToSection('#offers'); }}>
-            {t('hero.order')}
-          </a>
         </div>
         <div className="hero-cream-media">
           <div className="hero-cream-arch food"><img ref={imageRef} src="/assets/friesCTA.png" alt={t('hero.imageAlt')} width="770" height="924" fetchPriority="high" /></div>

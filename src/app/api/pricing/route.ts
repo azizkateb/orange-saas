@@ -4,13 +4,15 @@ export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 
 const STORE_IDENTIFIER = 'orange-sa.com';
-const API_BASE = 'https://api.salla.dev/store/v2/checkout';
+const PRODUCTS_API = 'https://api.salla.dev/store/v2/products';
 const CACHE_TTL = 5 * 60 * 1000;
 
-const OFFERS: Record<number, { product_id: string; pieces: number }> = {
-  1: { product_id: '675834151', pieces: 1 }, // 1 piece  -> 99 SAR
-  2: { product_id: '1723041231', pieces: 2 }, // 2 pieces -> 168 SAR
-  3: { product_id: '1627582468', pieces: 3 }, // 3 pieces -> 230 SAR
+// Verified server-side offer configuration. This is the single source of
+// truth for prices and is always returned, even if the read-only lookup fails.
+const OFFERS: Record<number, { productId: string; pieces: number; price: number }> = {
+  1: { productId: '675834151', pieces: 1, price: 99 },
+  2: { productId: '1723041231', pieces: 2, price: 168 },
+  3: { productId: '1627582468', pieces: 3, price: 230 },
 };
 
 const HEADERS: Record<string, string> = {
@@ -18,7 +20,6 @@ const HEADERS: Record<string, string> = {
   's-source': 'app',
   's-app-name': 'mini-orange-landing',
   's-app-version': '1.0.0',
-  'Content-Type': 'application/json',
   Accept: 'application/json',
 };
 
@@ -38,83 +39,78 @@ type PriceInfo = {
 
 const cache = new Map<number, { at: number; data: PriceInfo }>();
 
+function fallbackPrice(q: number): PriceInfo {
+  const offer = OFFERS[q];
+  const total = offer.price;
+  return {
+    quantity: q,
+    product_id: offer.productId,
+    pieces: offer.pieces,
+    available: true,
+    currency: 'SAR',
+    sub_total: total,
+    total,
+    tax: 0,
+    discount: 0,
+    original_total: total,
+    per_piece: Number((total / offer.pieces).toFixed(2)),
+  };
+}
+
+// Best-effort read-only lookup. Never mutates a cart. Falls back to the
+// verified offer configuration on any failure or when no price is found.
 async function fetchPrice(q: number): Promise<PriceInfo> {
   const cached = cache.get(q);
   if (cached && Date.now() - cached.at < CACHE_TTL) return cached.data;
 
   const offer = OFFERS[q];
-  const base: PriceInfo = {
-    quantity: q,
-    product_id: offer.product_id,
-    pieces: offer.pieces,
-    available: false,
-    currency: 'SAR',
-    sub_total: 0,
-    total: 0,
-    tax: 0,
-    discount: 0,
-    original_total: 0,
-    per_piece: 0,
-  };
+  const fallback = fallbackPrice(q);
 
-  const genRes = await fetch(`${API_BASE}/generate?include_items=true`, {
-    method: 'POST',
-    headers: HEADERS,
-  });
-  if (!genRes.ok) {
-    console.error('[salla-pricing] generate failed', genRes.status);
-    cache.set(q, { at: Date.now(), data: base });
-    return base;
-  }
-  const gen = await genRes.json();
-  const cartId = gen?.data?.id;
-  if (!cartId) {
-    console.error('[salla-pricing] missing cart id', gen);
-    cache.set(q, { at: Date.now(), data: base });
-    return base;
+  try {
+    const res = await fetch(`${PRODUCTS_API}/${offer.productId}`, {
+      method: 'GET',
+      headers: HEADERS,
+      cache: 'no-store',
+    });
+
+    if (res.ok) {
+      const json = await res.json().catch(() => null);
+      const price = extractPrice(json);
+      if (typeof price === 'number' && price > 0) {
+        const result: PriceInfo = {
+          ...fallback,
+          sub_total: price,
+          total: price,
+          original_total: price,
+          per_piece: Number((price / offer.pieces).toFixed(2)),
+        };
+        cache.set(q, { at: Date.now(), data: result });
+        return result;
+      }
+    }
+  } catch (e) {
+    console.error('[salla-pricing] read-only lookup failed, using fallback', e);
   }
 
-  const addRes = await fetch(`${API_BASE}/${cartId}/items?include_items=true`, {
-    method: 'POST',
-    headers: HEADERS,
-    body: JSON.stringify({
-      identifier_type: 'id',
-      identifier: offer.product_id,
-      quantity: 1,
-    }),
-  });
+  cache.set(q, { at: Date.now(), data: fallback });
+  return fallback;
+}
 
-  if (!addRes.ok) {
-    const text = await addRes.text();
-    console.error('[salla-pricing] add failed', addRes.status, text);
-    cache.set(q, { at: Date.now(), data: base });
-    return base;
+function extractPrice(json: unknown): number | null {
+  if (!json || typeof json !== 'object') return null;
+  const data = (json as { data?: Record<string, unknown> }).data ?? json;
+  // Try a few common Salla product shapes.
+  const candidates: unknown[] = [
+    (data as { price?: { amount?: { value?: number } } }).price?.amount?.value,
+    (data as { price?: number }).price,
+    (data as { amount?: { value?: number } }).amount?.value,
+    (data as { sale_price?: { amount?: { value?: number } } }).sale_price?.amount?.value,
+  ];
+  for (const c of candidates) {
+    const n = Number(c);
+    if (Number.isFinite(n) && n > 0) return n;
   }
-
-  const add = await addRes.json();
-  const d = add?.data ?? {};
-  const amounts = d.amounts ?? {};
-  const subTotal = Number(amounts.sub_total?.amount?.value ?? 0);
-  const total = Number(amounts.total?.amount?.value ?? 0);
-  const tax = Number(amounts.tax?.amount?.value ?? 0);
-  const currency = d.currency?.code || 'SAR';
-  const discount = Math.max(0, subTotal - total);
-  const pieces = offer.pieces || 1;
-
-  const result: PriceInfo = {
-    ...base,
-    available: true,
-    currency,
-    sub_total: subTotal,
-    total,
-    tax,
-    discount,
-    original_total: subTotal,
-    per_piece: Number((total / pieces).toFixed(2)),
-  };
-
-  cache.set(q, { at: Date.now(), data: result });
-  return result;
+  return null;
 }
 
 export async function GET(req: NextRequest) {
@@ -127,6 +123,7 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ prices });
   } catch (e) {
     console.error('[salla-pricing] error', e);
-    return NextResponse.json({ message: 'تعذر تحميل السعر' }, { status: 502 });
+    const prices = [1, 2, 3].map(fallbackPrice);
+    return NextResponse.json({ prices });
   }
 }
